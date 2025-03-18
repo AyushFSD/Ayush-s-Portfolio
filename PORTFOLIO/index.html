@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush's Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <nav class="navbar">
+        <a href="#" class="logo">Ayush<span>.</span></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="mobile-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1 class="fade-in">Ayush</h1>
+        <h3 class="fade-in">Web Developer & Designer</h3>
+        <p class="fade-in">
+            Creating beautiful digital experiences with a passion for design and functionality.
+            I transform ideas into reality with clean code and creative solutions.
+        </p>
+        <div class="hero-buttons fade-in">
+            <a href="#projects" class="btn">View My Work</a>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2 class="section-title fade-in">About Me</h2>
+        <div class="about-content">
+            <div class="about-img fade-in">
+                <img src="./assets/images/profile-new Background Removed.png" alt="Ayush">
+            </div>
+            <div class="about-text fade-in">
+                <h3>Who I Am</h3>
+                <p>
+                    Hello! I'm Ayush, a passionate web developer and designer with over 5 years of experience creating
+                    stunning digital experiences. My journey in the tech world began when I built my first website at
+                    the age of 15, and I've been hooked ever since.
+                </p>
+                <p>
+                    I specialize in creating responsive, user-friendly websites and applications that not only look
+                    beautiful but also perform exceptionally well. My approach combines technical expertise with
+                    creative problem-solving to deliver solutions that exceed expectations.
+                </p>
+                <p>
+                    When I'm not coding, you can find me exploring new technologies, contributing to open-source
+                    projects, or enjoying outdoor activities to refresh my creative energy.
+                </p>
+                <a href="#contact" class="btn">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <h2 class="section-title fade-in">My Skills</h2>
+        <div class="skills-container">
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <span>HTML</span>
+                </div>
+                <h3>Web Development</h3>
+                <p>
+                    Expertise in HTML5, CSS3, and JavaScript to create responsive and interactive websites that work
+                    seamlessly across all devices.
+                </p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <span>JS</span>
+                </div>
+                <h3>Frontend Frameworks</h3>
+                <p>
+                    Proficient in React, Vue, and Angular for building dynamic user interfaces with efficient state
+                    management and component architecture.
+                </p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <span>DB</span>
+                </div>
+                <h3>Backend Development</h3>
+                <p>
+                    Experience with Node.js, Express, MongoDB, and SQL databases to create robust server-side
+                    applications and APIs.
+                </p>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <span>UI</span>
+                </div>
+                <h3>UI/UX Design</h3>
+                <p>
+                    Strong design skills with tools like Figma and Adobe XD to create intuitive, visually appealing
+                    interfaces focused on user experience.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2 class="section-title fade-in">My Projects</h2>
+        <div class="projects-container">
+            <div class="project-card fade-in">
+                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 1" class="project-img">
+                <div class="project-content">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-featured online shopping platform with payment integration, user authentication, and
+                        inventory management.</p>
+                    <div class="project-links">
+                        <a href="#">View Project</a>
+                        <a href="#">Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 2" class="project-img">
+                <div class="project-content">
+                    <h3>Portfolio Website</h3>
+                    <p>A modern, responsive portfolio website with 3D animations and interactive elements to showcase
+                        creative work.</p>
+                    <div class="project-links">
+                        <a href="#">View Project</a>
+                        <a href="#">Code</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 3" class="project-img">
+                <div class="project-content">
+                    <h3>Task Management App</h3>
+                    <p>A productivity application with real-time updates, team collaboration features, and customizable
+                        workflows.</p>
+                    <div class="project-links">
+                        <a href="#">View Project</a>
+                        <a href="#">Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title fade-in">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <h3>Let's Talk About Your Project</h3>
+                <p>
+                    I'm always open to discussing new projects, creative ideas or opportunities to be part of your
+                    vision. Feel free to reach out through the form or via direct contact methods.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">@</div>
+                        <p>email@example.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">☎</div>
+                        <p>+1 (123) 456-7890</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <p>New York, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">FB</a>
+            <a href="#">TW</a>
+            <a href="#">IG</a>
+            <a href="#">LI</a>
+            <a href="#">GH</a>
+        </div>
+        <p class="copyright">© 2025 Ayush. All Rights Reserved.</p>
+    </footer>
+
+    <script src="./index.js">
+        
+    </script>
+</body>
+
+</html>
