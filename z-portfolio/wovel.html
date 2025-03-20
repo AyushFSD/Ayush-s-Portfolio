@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowels and Consonants</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            width: 400px;
+            max-width: 90%;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Title styling */
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input field styling */
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-bottom-color 0.3s ease;
+            outline: none;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus {
+            border-bottom-color: #3498db;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Result styling */
+        .result {
+            margin-top: 20px;
+        }
+
+        /* Vowel styling */
+        .vowel {
+            color: #FF5733;
+            font-weight: bold;
+        }
+
+        /* Consonant styling */
+        .consonant {
+            color: #3498db;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Error styling */
+        .error {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        // Function to check if a letter is a vowel or consonant
+        function check() {
+            // Get the value of the input field and convert it to lowercase
+            let x = document.getElementById("letter").value.trim().toLowerCase();
+
+            // Check if the input is a single character
+            if (x.length !== 1) {
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("error").innerText = "Please enter a single letter.";
+                return;
+            }
+
+            // Check if the input is a vowel
+            if ((x == "a") || (x == "e") || (x == "i") || (x == "o") || (x == "u")) {
+                // Display the result for a vowel
+                document.getElementById("result").innerHTML = "The letter is a <span class='vowel'>" + x.toUpperCase() + "</span> Vowel";
+            }
+            // Check if the input is a consonant
+            else if ((x >= 'a' && x <= 'z')) {
+                // Display the result for a consonant
+                document.getElementById("result").innerHTML = "The letter is a <span class='consonant'>" + x.toUpperCase() + "</span> Consonant";
+            }
+            // If the input is not a letter
+            else {
+                // Display an error message
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("error").innerText = "Please enter a valid letter.";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Title -->
+        <h1>Check if a letter is a Vowel or Consonant</h1>
+        <!-- Input field for entering a letter -->
+        <input type="text" id="letter" placeholder="Enter a letter" aria-label="Letter">
+        <br>
+        <!-- Button to check the letter -->
+        <button onclick="check()" aria-label="Check">Check</button>
+        <!-- Error message display area -->
+        <div class="error" id="error"></div>
+        <!-- Result display area -->
+        <div class="result" id="result"></div>
+    </div>
+</body>
+
+</html>

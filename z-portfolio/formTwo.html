@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        .border {
+            background-color: rgb(193, 244, 244);
+            padding: 20px;
+        }
+
+        .text {
+            background-color: rgb(119, 216, 106);
+        }
+
+        .ep {
+            color: #474F7A;
+        }
+    </style>
+    <!-- linking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Kanit&family=Playfair+Display:ital@1&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- section  -->
+    <form style="background-color: aqua; padding: 20px;" action="./formThree.html">
+
+        <fieldset class="border">
+            <h1 style="text-align: center;">ENTER YOUR DETAILS</h1>
+            <!-- bordr text -->
+            <legend class="ep">Enjoy Programming</legend>
+            <label for="text">Preferd Timing:
+                <input form="text" type="time"> to <input form="text" type="time">
+            </label><br>
+            <br />
+            <label for="text">Preffered Date:
+                <input form="text" type="date"> to <input form="text" type="date">
+            </label><br>
+            <br />
+            <label class="ep" for="text"> Date Of Birth:
+                <input form="text" type="datetime-local">
+            </label>
+            <br />
+            <br />
+            <!-- 1st division -->
+            <label for="text"> E-mail:
+                <input form="text" type="email">
+            </label><br />
+            <br />
+            <!-- 2nd division-->
+            <label for="text"> Contract No:
+                <input form="text" type="number">
+            </label><br />
+            <br />
+            <!-- 3rd division -->
+            <label for="Laptop"> Comunication-Skill (out of 10)
+                <input for="comunication-skill" type="range">
+            </label><br />
+            <br />
+            <!-- 4th division -->
+            <label for="text"> Age :
+                <input for="text" type="number">
+            </label><br />
+            <br />
+            <!-- SYSTEM END -->
+            <!-- education -->
+
+            <br />
+            <select>Pick A Batch:
+                <!-- senior -->
+                <label class="ep" for="batchselection">Pick A Batch:
+                    <optgroup label="senier">
+                        <option class="text" value="proffecient">Profecient</option>
+                        <option class="text" value="ambitious">Ambitious</option>
+                    </optgroup>
+                </label>
+                <!-- junior -->
+                <optgroup label="junior">
+                    <option class="text" value="scoler">Schloar</option>
+                    <option class="text" value="visunary">Visunary</option>
+                </optgroup>
+            </select><br>
+            <br />
+            <br />
+            <!-- end education -->
+            <label for="text" id="text">Tell Something About Yourself
+                <textarea class="two" style="height: 50px; width: 300px;" id="about" placeholder="Write about yourself">
+                </textarea>
+            </label>
+            <br />
+            <br />
+
+            <input type="submit" placeholder="sign up " style="background-color: rgb(20, 132, 33);">
+        </fieldset>
+
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .macbook {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90vw;
+            max-width: 1200px;
+        }
+
+        .screen {
+            background-color: #000;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 10px;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .screen-content {
+            background-color: #1e1e1e;
+            color: white;
+            height: 100%;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: "SF Mono", monospace;
+            font-size: 20px;
+            overflow: hidden;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .display-text {
+            height: 100%;
+            overflow: auto;
+            margin: 0;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: white;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .camera {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: #333;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .main {
+            background-color: #1a1a1a;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .main-2 {
+            background-color: #070F2B;
+            grid-template-columns: 1fr;
+            width: 60vw;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .first {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 12%;
+            gap: 3px;
+        }
+
+        .color {
+            background-color: #333;
+            border: none;
+            border-radius: 4px;
+            margin: 2px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.7em;
+        }
+
+        .color:hover {
+            background-color: #555;
+        }
+
+        .color.active {
+            background-color: #007aff;
+        }
+
+        .sec {
+            display: grid;
+            grid-template-columns: repeat(14, 1fr);
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 18%;
+            gap: 3px;
+        }
+
+        .third {
+            display: grid;
+            grid-template-columns: 1.4fr repeat(12, 1fr) 1.2fr;
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 18%;
+            gap: 3px;
+        }
+
+        .forth-row {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(11, 1fr) 1.6fr;
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 18%;
+            gap: 3px;
+        }
+
+        .fifth-row {
+            display: grid;
+            grid-template-columns: 1.6fr repeat(10, 1fr) 1.8fr;
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 18%;
+            gap: 3px;
+        }
+
+        .sixth-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 7fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 18%;
+            color: white;
+            gap: 3px;
+        }
+
+        .right {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            width: 18vw;
+            padding: 5px;
+        }
+
+        .rone-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr;
+            background-color: none;
+            width: 100%;
+            height: 12%;
+            color: white;
+            gap: 3px;
+        }
+
+        .rtwo-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            background-color: none;
+            width: 100%;
+            height: 90%;
+            color: white;
+            gap: 3px;
+        }
+
+        .item {
+            display: grid;
+            grid-row: span 2;
+        }
+
+        .two-button {
+            width: 100%;
+            height: 40%;
+            margin-right: 5px;
+        }
+
+        .zero-button {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="macbook">
+        <!-- Screen -->
+        <div class="screen">
+            <div class="camera"></div>
+            <div class="screen-content">
+                <div class="display-text" id="displayText"></div>
+                <span class="cursor"></span>
+            </div>
+        </div>
+        
+        <!-- main keyboard -->
+        <div class="main">
+            <!-- left -->
+            <div class="left">
+                <!-- row one -->
+                <div class="first">
+                    <button class="color" data-key="Escape">esc</button>
+                    <button class="color" data-key="F1">f1</button>
+                    <button class="color" data-key="F2">f2</button>
+                    <button class="color" data-key="F3">f3</button>
+                    <button class="color" data-key="F4">f4</button>
+                    <button class="color" data-key="F5">f5</button>
+                    <button class="color" data-key="F6">f6</button>
+                    <button class="color" data-key="F7">f7</button>
+                    <button class="color" data-key="F8">f8</button>
+                    <button class="color" data-key="F9">f9</button>
+                    <button class="color" data-key="F10">f10</button>
+                    <button class="color" data-key="F11">f11</button>
+                    <button class="color" data-key="F12">f12</button>
+                    <button class="color" data-key="Insert">ins</button>
+                    <button class="color" data-key="Delete">del</button>
+                </div>
+                <!-- row two -->
+                <div class="sec">
+                    <button class="color" data-key="`">~ <br> `</button>
+                    <button class="color" data-key="1">! <br>1</button>
+                    <button class="color" data-key="2">@ <br> 2</button>
+                    <button class="color" data-key="3"># <br>3</button>
+                    <button class="color" data-key="4">$ <br> 4</button>
+                    <button class="color" data-key="5">% <br> 5</button>
+                    <button class="color" data-key="6">^ <br> 6</button>
+                    <button class="color" data-key="7">& <br> 7</button>
+                    <button class="color" data-key="8">* <br> 8</button>
+                    <button class="color" data-key="9">( <br> 9</button>
+                    <button class="color" data-key="0">) <br> 0</button>
+                    <button class="color" data-key="-">_ <br> -</button>
+                    <button class="color" data-key="=">+ <br> =</button>
+                    <button class="color" data-key="Backspace">backspace</button>
+                </div>
+                <!-- row three -->
+                <div class="third">
+                    <button class="color" data-key="Tab">tab</button>
+                    <button class="color" data-key="q">Q</button>
+                    <button class="color" data-key="w">W</button>
+                    <button class="color" data-key="e">E</button>
+                    <button class="color" data-key="r">R</button>
+                    <button class="color" data-key="t">T</button>
+                    <button class="color" data-key="y">Y</button>
+                    <button class="color" data-key="u">U</button>
+                    <button class="color" data-key="i">I</button>
+                    <button class="color" data-key="o">O</button>
+                    <button class="color" data-key="p">P</button>
+                    <button class="color" data-key="[">{<br>[</button>
+                    <button class="color" data-key="]">}<br>]</button>
+                    <button class="color" data-key="\">|<br>\</button>
+                </div>
+                <!-- row four -->
+                <div class="forth-row">
+                    <button class="color" data-key="CapsLock">caps lock</button>
+                    <button class="color" data-key="a">A</button>
+                    <button class="color" data-key="s">S</button>
+                    <button class="color" data-key="d">D</button>
+                    <button class="color" data-key="f">F</button>
+                    <button class="color" data-key="g">G</button>
+                    <button class="color" data-key="h">H</button>
+                    <button class="color" data-key="j">J</button>
+                    <button class="color" data-key="k">K</button>
+                    <button class="color" data-key="l">L</button>
+                    <button class="color" data-key=";">:<br>;</button>
+                    <button class="color" data-key="'">"<br>'</button>
+                    <button class="color" data-key="Enter">↩ enter</button>
+                </div>
+                <!-- row five -->
+                <div class="fifth-row">
+                    <button class="color" data-key="Shift">shift</button>
+                    <button class="color" data-key="z">Z</button>
+                    <button class="color" data-key="x">X</button>
+                    <button class="color" data-key="c">C</button>
+                    <button class="color" data-key="v">V</button>
+                    <button class="color" data-key="b">B</button>
+                    <button class="color" data-key="n">N</button>
+                    <button class="color" data-key="m">M</button>
+                    <button class="color" data-key=",">&lt;<br>,</button>
+                    <button class="color" data-key=".">><br>.</button>
+                    <button class="color" data-key="/">?<br>/</button>
+                    <button class="color" data-key="ShiftRight">shift</button>
+                </div>
+                <!--row six  -->
+                <div class="sixth-row">
+                    <button class="color" data-key="Control">ctrl</button>
+                    <button class="color" data-key="fn">fn</button>
+                    <button class="color" data-key="Meta">⌘</button>
+                    <button class="color" data-key="Alt">alt</button>
+                    <button class="color" data-key=" ">space</button>
+                    <button class="color" data-key="AltGraph">alt</button>
+                    <button class="color" data-key="ControlRight">ctrl</button>
+                    <button class="color" data-key="ArrowLeft">◄</button>
+                    <div style="margin-right: 7px; display: flex; flex-direction: column;">
+                        <button class="color two-button" data-key="ArrowUp">▲</button>
+                        <button class="color two-button" data-key="ArrowDown">▼</button>
+                    </div>
+                    <button class="color" data-key="ArrowRight">►</button>
+                </div>
+            </div>
+            <!-- right  -->
+            <div class="right">
+                <!-- row one -->
+                <div class="rone-row">
+                    <button class="color" data-key="Home">home</button>
+                    <button class="color" data-key="End">end</button>
+                    <button class="color" data-key="PageUp">pg up</button>
+                    <button class="color" data-key="PageDown">pg dn</button>
+                </div>
+                <!-- row two -->
+                <div class="rtwo-row">
+                    <button class="color" data-key="NumLock">num<br>lock</button>
+                    <button class="color" data-key="/">/</button>
+                    <button class="color" data-key="*">*</button>
+                    <button class="color" data-key="-">-</button>
+                    <button class="color" data-key="7">7<sup>home</sup></button>
+                    <button class="color" data-key="8">8<br>↑</button>
+                    <button class="color" data-key="9">9<sup>pg up</sup></button>
+                    <button class="color item" data-key="+">+</button>
+                    <button class="color" data-key="4">4<br>←</button>
+                    <button class="color" data-key="5">5</button>
+                    <button class="color" data-key="6">6<br>→</button>
+                    <button class="color" data-key="1">1<sup>end</sup></button>
+                    <button class="color" data-key="2">2<br>↓</button>
+                    <button class="color" data-key="3">3<sup>pg dn</sup></button>
+                    <button class="color item" data-key="Enter">enter</button>
+                    <button class="color zero-button" data-key="0">0</button>
+                    <button class="color" data-key=".">.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const displayText = document.getElementById('displayText');
+        const keys = document.querySelectorAll('.color');
+        let text = '';
+        
+        // Add click event listeners to all keys
+        keys.forEach(key => {
+            key.addEventListener('click', function() {
+                const keyValue = this.getAttribute('data-key');
+                handleKeyPress(keyValue);
+                
+                // Add active class momentarily
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 100);
+            });
+        });
+        
+        // Add keyboard event listeners
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            handleKeyPress(key);
+            
+            // Find and highlight the pressed key
+            const keyElement = document.querySelector(`[data-key="${key}"]`);
+            if (keyElement) {
+                keyElement.classList.add('active');
+                setTimeout(() => {
+                    keyElement.classList.remove('active');
+                }, 100);
+            }
+        });
+        
+        function handleKeyPress(key) {
+            switch(key) {
+                case 'Backspace':
+                    text = text.slice(0, -1);
+                    break;
+                case 'Enter':
+                    text += '\n';
+                    break;
+                case 'Tab':
+                    text += '    ';
+                    event.preventDefault();
+                    break;
+                case 'Delete':
+                    // Do nothing for now
+                    break;
+                case 'Escape':
+                case 'F1':
+                case 'F2':
+                case 'F3':
+                case 'F4':
+                case 'F5':
+                case 'F6':
+                case 'F7':
+                case 'F8':
+                case 'F9':
+                case 'F10':
+                case 'F11':
+                case 'F12':
+                case 'Insert':
+                case 'Home':
+                case 'End':
+                case 'PageUp':
+                case 'PageDown':
+                case 'NumLock':
+                case 'CapsLock':
+                case 'Shift':
+                case 'ShiftRight':
+                case 'Control':
+                case 'ControlRight':
+                case 'Alt':
+                case 'AltGraph':
+                case 'Meta':
+                case 'fn':
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                case 'ArrowUp':
+                case 'ArrowDown':
+                    // Function keys - no text output
+                    break;
+                default:
+                    text += key;
+            }
+            displayText.textContent = text;
+        }
+    </script>
+</body>
+
+</html>

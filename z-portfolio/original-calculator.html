@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: #212121;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .main {
+            background-color: #212121;
+            height: 600px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        /* Top bar with red, yellow, green dots */
+        .top-bar {
+            height: 25px;
+            background-color: #1c1c1c;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+        
+        .dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red-dot {
+            background-color: #ff5f56;
+        }
+        
+        .yellow-dot {
+            background-color: #ffbd2e;
+        }
+        
+        .green-dot {
+            background-color: #27c93f;
+        }
+
+        #display {
+            flex: 1;
+            background-color: #212121;
+            color: white;
+            text-align: right;
+            padding: 20px;
+            font-size: 60px;
+            font-weight: 300;
+            margin: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            overflow: hidden;
+            word-break: break-all;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            gap: 10px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        button {
+            font-size: 24px;
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            color: white;
+            background-color: #333333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:active {
+            filter: brightness(1.2);
+        }
+
+        .orange-btn {
+            background-color: #ff9f0a;
+        }
+
+        /* Zero button */
+        .zero-btn {
+            width: 150px;
+            border-radius: 35px;
+            justify-content: flex-start;
+            padding-left: 25px;
+        }
+    </style>
+    <!-- script -->
+    <script>
+        let total = 0;
+        let displayString = "";
+        let action = 0;
+        let resetDisplay = false;
+
+        function showresult() {
+            if (displayString === "") return;
+            
+            if (action == 1) {
+                total = total + Number(displayString);
+            }
+            else if (action == 2) {
+                total = total % Number(displayString);
+            }
+            else if (action == 3) {
+                total = total / Number(displayString);
+            }
+            else if (action == 4) {
+                total = total - Number(displayString);
+            }
+            else if (action == 5) {
+                total = total * Number(displayString);
+            }
+            
+            // Format the result
+            displayString = total.toString();
+            // If it's a whole number, remove decimal point
+            if (displayString.includes('.') && displayString.split('.')[1] === '0') {
+                displayString = displayString.split('.')[0];
+            }
+            
+            document.getElementById("display").innerHTML = displayString;
+            resetDisplay = true;
+        }
+
+        function clearFunction() {
+            total = 0;
+            displayString = "";
+            action = 0;
+            document.getElementById("display").innerHTML = "0";
+        }
+
+        function numbertype(passnumber) {
+            if (resetDisplay) {
+                displayString = "";
+                resetDisplay = false;
+            }
+            
+            // Prevent multiple decimal points
+            if (passnumber === '.' && displayString.includes('.')) {
+                return;
+            }
+            
+            // Handle first decimal point
+            if (passnumber === '.' && displayString === "") {
+                displayString = "0.";
+            } else {
+                displayString = displayString + passnumber.toString();
+            }
+            
+            document.getElementById("display").innerHTML = displayString;
+        }
+
+        function add() {
+            if (displayString === "") return;
+            total = Number(displayString);
+            displayString = "";
+            action = 1;
+            resetDisplay = false;
+        }
+
+        function backspace() {
+            displayString = displayString.substring(0, displayString.length - 1);
+            if (displayString === "") {
+                document.getElementById("display").innerHTML = "0";
+            } else {
+                document.getElementById("display").innerHTML = displayString;
+            }
+        }
+
+        function percent() {
+            if (displayString === "") return;
+            total = Number(displayString);
+            displayString = "";
+            action = 2;
+            resetDisplay = false;
+        }
+
+        function division() {
+            if (displayString === "") return;
+            total = Number(displayString);
+            displayString = "";
+            action = 3;
+            resetDisplay = false;
+        }
+
+        function sub() {
+            if (displayString === "") return;
+            total = Number(displayString);
+            displayString = "";
+            action = 4;
+            resetDisplay = false;
+        }
+
+        function multiply() {
+            if (displayString === "") return;
+            total = Number(displayString);
+            displayString = "";
+            action = 5;
+            resetDisplay = false;
+        }
+        
+        // Initialize display with 0
+        window.onload = function() {
+            document.getElementById("display").innerHTML = "0";
+        };
+    </script>
+</head>
+
+<body>
+    <!-- main division -->
+    <div class="main">
+        <!-- Top bar with dots -->
+        <div class="top-bar">
+            <span class="dot red-dot"></span>
+            <span class="dot yellow-dot"></span>
+            <span class="dot green-dot"></span>
+        </div>
+        
+        <!-- display -->
+        <h1 id="display"></h1>
+        
+        <!-- buttons container -->
+        <div class="buttons-container">
+            <div class="button-row">
+                <button onclick="clearFunction()">AC</button>
+                <button onclick="backspace()">+/-</button>
+                <button onclick="percent()">%</button>
+                <button class="orange-btn" onclick="division()">÷</button>
+            </div>
+            <div class="button-row">
+                <button onclick="numbertype(7)">7</button>
+                <button onclick="numbertype(8)">8</button>
+                <button onclick="numbertype(9)">9</button>
+                <button class="orange-btn" onclick="multiply()">×</button>
+            </div>
+            <div class="button-row">
+                <button onclick="numbertype(4)">4</button>
+                <button onclick="numbertype(5)">5</button>
+                <button onclick="numbertype(6)">6</button>
+                <button class="orange-btn" onclick="sub()">−</button>
+            </div>
+            <div class="button-row">
+                <button onclick="numbertype(1)">1</button>
+                <button onclick="numbertype(2)">2</button>
+                <button onclick="numbertype(3)">3</button>
+                <button class="orange-btn" onclick="add()">+</button>
+            </div>
+            <div class="button-row">
+                <button class="zero-btn" onclick="numbertype(0)">0</button>
+                <button onclick="numbertype('.')">.</button>
+                <button class="orange-btn" onclick="showresult()">=</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

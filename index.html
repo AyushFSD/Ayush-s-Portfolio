@@ -4,221 +4,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayush's Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <title>Developer Portfolio</title>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
 <body>
-    <div id="canvas-container"></div>
-
-    <nav class="navbar">
-        <a href="#" class="logo">Ayush<span>.</span></a>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+    <!-- Header -->
+    <!-- Update the header section in your HTML file -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Ayush</div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="mobile-menu">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </nav>
+    </header>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1 class="fade-in">Ayush</h1>
-        <h3 class="fade-in">Web Developer & Designer</h3>
-        <p class="fade-in">
-            Creating beautiful digital experiences with a passion for design and functionality.
-            I transform ideas into reality with clean code and creative solutions.
-        </p>
-        <div class="hero-buttons fade-in">
-            <a href="#projects" class="btn">View My Work</a>
-            <a href="#contact" class="btn">Get In Touch</a>
+        <div class="container">
+            <div class="hero-content animated">
+                <h1>Hi, I'm <span class="highlight">Ayush Lolusare</span></h1>
+                <p>A passionate Web Developer & QA Engineer specializing in HTML, CSS, JavaScript, SQL, and Manual
+                    Testing.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn"
+                        style="background-color: transparent; border: 2px solid white;">Contact Me</a>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="about">
-        <h2 class="section-title fade-in">About Me</h2>
-        <div class="about-content">
-            <div class="about-img fade-in">
-                <img src="./assets/images/profile-new Background Removed.png" alt="Ayush">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
             </div>
-            <div class="about-text fade-in">
-                <h3>Who I Am</h3>
-                <p>
-                    Hello! I'm Ayush, a passionate web developer and designer with over 5 years of experience creating
-                    stunning digital experiences. My journey in the tech world began when I built my first website at
-                    the age of 15, and I've been hooked ever since.
-                </p>
-                <p>
-                    I specialize in creating responsive, user-friendly websites and applications that not only look
-                    beautiful but also perform exceptionally well. My approach combines technical expertise with
-                    creative problem-solving to deliver solutions that exceed expectations.
-                </p>
-                <p>
-                    When I'm not coding, you can find me exploring new technologies, contributing to open-source
-                    projects, or enjoying outdoor activities to refresh my creative energy.
-                </p>
-                <a href="#contact" class="btn">Let's Connect</a>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="./assets/images/profile_pic.png" alt="Your Profile Image">
+                </div>
+                <div class="about-text">
+                    <p>I am a versatile developer with expertise in front-end development and quality assurance. With a
+                        strong foundation in HTML, CSS, JavaScript, and SQL, I create robust and visually appealing web
+                        applications while ensuring they meet the highest quality standards through rigorous manual
+                        testing.</p>
+                    <p>My approach combines technical excellence with an eye for detail, allowing me to build solutions
+                        that are not only functionally sound but also provide exceptional user experiences.</p>
+                    <p>I am constantly learning and exploring new technologies to enhance my skill set and deliver
+                        cutting-edge solutions to complex problems.</p>
+                    <a href="./resume/resume.html" class="btn" style="margin-top: 20px;">Open Resume</a>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Skills Section -->
     <section id="skills" class="skills">
-        <h2 class="section-title fade-in">My Skills</h2>
-        <div class="skills-container">
-            <div class="skill-card fade-in">
-                <div class="skill-icon">
-                    <span>HTML</span>
-                </div>
-                <h3>Web Development</h3>
-                <p>
-                    Expertise in HTML5, CSS3, and JavaScript to create responsive and interactive websites that work
-                    seamlessly across all devices.
-                </p>
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Skills</h2>
             </div>
-            <div class="skill-card fade-in">
-                <div class="skill-icon">
-                    <span>JS</span>
+            <p>Here are the technical skills I've developed throughout my career:</p>
+
+            <div class="skills-container">
+                <!-- Frontend Development -->
+                <div class="skill-card">
+                    <i class="fab fa-html5" style="color: var(--html);"></i>
+                    <h3>HTML5</h3>
+                    <p>Semantic markup, accessibility, responsive design</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 95%;"></div>
+                    </div>
                 </div>
-                <h3>Frontend Frameworks</h3>
-                <p>
-                    Proficient in React, Vue, and Angular for building dynamic user interfaces with efficient state
-                    management and component architecture.
-                </p>
-            </div>
-            <div class="skill-card fade-in">
-                <div class="skill-icon">
-                    <span>DB</span>
+
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt" style="color: var(--css);"></i>
+                    <h3>CSS3</h3>
+                    <p>Flexbox, Grid, animations, responsive layouts</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
                 </div>
-                <h3>Backend Development</h3>
-                <p>
-                    Experience with Node.js, Express, MongoDB, and SQL databases to create robust server-side
-                    applications and APIs.
-                </p>
-            </div>
-            <div class="skill-card fade-in">
-                <div class="skill-icon">
-                    <span>UI</span>
+
+                <div class="skill-card">
+                    <i class="fab fa-sass" style="color: var(--sass);"></i>
+                    <h3>SASS</h3>
+                    <p>Variables, mixins, nesting, partials, modules</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
                 </div>
-                <h3>UI/UX Design</h3>
-                <p>
-                    Strong design skills with tools like Figma and Adobe XD to create intuitive, visually appealing
-                    interfaces focused on user experience.
-                </p>
+
+                <div class="skill-card">
+                    <i class="fab fa-js" style="color: var(--js);"></i>
+                    <h3>JavaScript</h3>
+                    <p>ES6+, DOM manipulation, async/await, promises</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fab fa-react" style="color: var(--react);"></i>
+                    <h3>React</h3>
+                    <p>JSX, TSX, Hooks, state management, component architecture</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <!-- Backend Development -->
+                <div class="skill-card">
+                    <i class="fab fa-node-js" style="color: var(--node);"></i>
+                    <h3>Node.js</h3>
+                    <p>Express, RESTful APIs, middleware, NPM</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="skill-card">
+                    <i class="fab fa-python" style="color: var(--python);"></i>
+                    <h3>Python</h3>
+                    <p>Data processing, automation, scripting, libraries</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fab fa-java" style="color: var(--java);"></i>
+                    <h3>Java</h3>
+                    <p>OOP, enterprise applications, multithreading</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fas fa-code" style="color: var(--c);"></i>
+                    <h3>C/C++</h3>
+                    <p>System programming, algorithms, memory management</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fab fa-swift" style="color: var(--swift);"></i>
+                    <h3>Swift</h3>
+                    <p>iOS development, SwiftUI, mobile app architecture</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <!-- Data Technologies -->
+                <div class="skill-card">
+                    <i class="fas fa-database" style="color: var(--sql);"></i>
+                    <h3>SQL</h3>
+                    <p>Query optimization, relational database design</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fas fa-database" style="color: var(--postgresql);"></i>
+                    <h3>PostgreSQL</h3>
+                    <p>Advanced queries, stored procedures, performance tuning</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Data Formats -->
+                <div class="skill-card">
+                    <i class="fas fa-file-code" style="color: var(--json);"></i>
+                    <h3>JSON</h3>
+                    <p>Data structures, API integration, configuration</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <i class="fas fa-file-code" style="color: var(--xml);"></i>
+                    <h3>XML</h3>
+                    <p>Document formatting, data interchange, parsing</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <!-- Version Control -->
+                <div class="skill-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Version Control</h3>
+                    <p>Git, GitHub, branching strategies, pull requests</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Projects Section -->
     <section id="projects" class="projects">
-        <h2 class="section-title fade-in">My Projects</h2>
-        <div class="projects-container">
-            <div class="project-card fade-in">
-                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 1" class="project-img">
-                <div class="project-content">
-                    <h3>E-Commerce Platform</h3>
-                    <p>A full-featured online shopping platform with payment integration, user authentication, and
-                        inventory management.</p>
-                    <div class="project-links">
-                        <a href="#">View Project</a>
-                        <a href="#">Code</a>
+        <div class="container">
+            <div class="section-title">
+                <h2>My Projects</h2>
+            </div>
+            <p>Browse through my projects by technology:</p>
+
+            <div class="projects-nav">
+                <div class="project-nav-item html active" data-target="html-projects">HTML</div>
+                <div class="project-nav-item css" data-target="css-projects">CSS</div>
+                <div class="project-nav-item js" data-target="js-projects">JavaScript</div>
+                <div class="project-nav-item sql" data-target="sql-projects">SQL</div>
+                <div class="project-nav-item qa" data-target="qa-projects">QA Testing</div>
+            </div>
+
+            <!-- HTML Projects -->
+            <div id="html-projects" class="project-category active">
+                <h3>HTML Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--html);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">Semantic Markup</span>
+                                <span class="tag">Accessibility</span>
+                            </div>
+                            <h3>E-commerce Landing Page</h3>
+                            <p>A semantic HTML structure for an e-commerce landing page with accessibility features and
+                                SEO optimizations.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/e-commers.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--html);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">Forms</span>
+                                <span class="tag">Validation</span>
+                            </div>
+                            <h3>Contact Form System</h3>
+                            <p>A robust contact form with client-side validation, custom form elements, and
+                                accessibility features.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/form-contact-page.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="project-card fade-in">
-                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 2" class="project-img">
-                <div class="project-content">
-                    <h3>Portfolio Website</h3>
-                    <p>A modern, responsive portfolio website with 3D animations and interactive elements to showcase
-                        creative work.</p>
-                    <div class="project-links">
-                        <a href="#">View Project</a>
-                        <a href="#">Code</a>
+
+            <!-- CSS Projects -->
+            <div id="css-projects" class="project-category">
+                <h3>CSS Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--css);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">CSS</span>
+                                <span class="tag">Flexbox</span>
+                                <span class="tag">Grid</span>
+                            </div>
+                            <h3>Responsive Portfolio Layout</h3>
+                            <p>A responsive portfolio design using CSS Grid and Flexbox for modern layout techniques.
+                            </p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/portfolio-by-css.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--css);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">CSS</span>
+                                <span class="tag">Animations</span>
+                                <span class="tag">Transitions</span>
+                            </div>
+                            <h3>Interactive Product Showcase</h3>
+                            <p>A product showcase with CSS animations, transitions, and hover effects for an engaging
+                                user experience.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/contact-form-validation.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="project-card fade-in">
-                <img src="https://png.pngtree.com/png-vector/20190629/ourmid/pngtree-analysis-icon-for-your-project-png-image_1521507.jpg" alt="Project 3" class="project-img">
-                <div class="project-content">
-                    <h3>Task Management App</h3>
-                    <p>A productivity application with real-time updates, team collaboration features, and customizable
-                        workflows.</p>
-                    <div class="project-links">
-                        <a href="#">View Project</a>
-                        <a href="#">Code</a>
+
+            <!-- JavaScript Projects -->
+            <div id="js-projects" class="project-category">
+                <h3>JavaScript Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--js);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">API</span>
+                                <span class="tag">Async</span>
+                            </div>
+                            <h3>Weather Dashboard App</h3>
+                            <p>Interactive weather application that fetches and displays real-time weather data from
+                                external APIs.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/weather-interactive-application.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--js);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">DOM</span>
+                                <span class="tag">ES6+</span>
+                            </div>
+                            <h3>Task Management System</h3>
+                            <p>A feature-rich task management application with drag-and-drop functionality, local
+                                storage, and filtering options.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="./z-portfolio/task-management-application.html"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SQL Projects -->
+            <div id="sql-projects" class="project-category">
+                <h3>SQL Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--sql);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">SQL</span>
+                                <span class="tag">Database Design</span>
+                                <span class="tag">Optimization</span>
+                            </div>
+                            <h3>Inventory Management System</h3>
+                            <p>A comprehensive database solution for tracking inventory, orders, and customer data with
+                                optimized query performance.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="#"><i class="fas fa-file-alt"></i> Documentation</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--sql);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">SQL</span>
+                                <span class="tag">Data Analysis</span>
+                                <span class="tag">Reporting</span>
+                            </div>
+                            <h3>E-commerce Analytics Database</h3>
+                            <p>A sophisticated SQL database for e-commerce analytics with complex queries, stored
+                                procedures, and reporting capabilities.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fab fa-github"></i> View Code</a>
+                                <a href="#"><i class="fas fa-chart-bar"></i> Reports</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QA Testing Projects -->
+            <div id="qa-projects" class="project-category">
+                <h3>QA Testing Projects</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--qa);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">Manual Testing</span>
+                                <span class="tag">QA</span>
+                                <span class="tag">Documentation</span>
+                            </div>
+                            <h3>E-Learning Platform Testing</h3>
+                            <p>Comprehensive test case documentation and defect tracking for an online learning
+                                management system.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fas fa-file-alt"></i> Test Cases</a>
+                                <a href="#"><i class="fas fa-clipboard-check"></i> Test Results</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-img" style="background-color: var(--qa);"></div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag">User Acceptance Testing</span>
+                                <span class="tag">Defect Tracking</span>
+                                <span class="tag">Test Plans</span>
+                            </div>
+                            <h3>Mobile App Test Suite</h3>
+                            <p>A complete test suite for a mobile application including test plans, test cases, and
+                                comprehensive defect tracking.</p>
+                            <div class="project-links">
+                                <a href="#"><i class="fas fa-file-alt"></i> Test Plan</a>
+                                <a href="#"><i class="fas fa-bug"></i> Bug Reports</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="contact">
-        <h2 class="section-title fade-in">Get In Touch</h2>
-        <div class="contact-container">
-            <div class="contact-info fade-in">
-                <h3>Let's Talk About Your Project</h3>
-                <p>
-                    I'm always open to discussing new projects, creative ideas or opportunities to be part of your
-                    vision. Feel free to reach out through the form or via direct contact methods.
-                </p>
-                <div class="contact-details">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>Feel free to reach out if you're looking for a developer, have a question, or just want to
+                        connect.</p>
+
                     <div class="contact-item">
-                        <div class="contact-icon">@</div>
-                        <p>email@example.com</p>
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>your.email@example.com</p>
+                        </div>
                     </div>
+
                     <div class="contact-item">
-                        <div class="contact-icon">☎</div>
-                        <p>+1 (123) 456-7890</p>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+1 (123) 456-7890</p>
+                        </div>
                     </div>
+
                     <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <p>New York, USA</p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Your City, Country</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="contact-form fade-in">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Your Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" placeholder="Subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
+
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <div class="social-links">
-            <a href="#">FB</a>
-            <a href="#">TW</a>
-            <a href="#">IG</a>
-            <a href="#">LI</a>
-            <a href="#">GH</a>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/ayush-lolusare-742a11354/"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/ayush_lolusare/"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2025 Your Name. All Rights Reserved.</p>
         </div>
-        <p class="copyright">© 2025 Ayush. All Rights Reserved.</p>
     </footer>
-
-    <script src="./index.js">
-        
-    </script>
+    <script src="./index.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        .border {
+            background-color: rgb(193, 244, 244);
+            padding: 20px;
+        }
+
+        .text {
+            background-color: rgb(119, 216, 106);
+        }
+
+        .ep {
+            color: #474F7A;
+        }
+
+        .top {
+            background-image: url(data:image/jpeg;base64,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);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .button {
+            background-color: lightgreen;
+            width: 80%; /* Adjusted for responsive design */
+            margin: 20px auto; /* Center horizontally */
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: green;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 600px) {
+            form {
+                width: 90%; /* Adjusted for smaller screens */
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .button {
+                width: 100%; /* Full width on smaller screens */
+            }
+        }
+    </style>
+    <!-- linking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Kanit&family=Playfair+Display:ital@1&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body class="top">
+    <!-- section  -->
+    <form
+        style="background-color: aqua; padding: 20px;"
+        action="./formTwo.html">
+
+        <fieldset class="border">
+            <h1 style="text-align: center;">ENTER YOUR DETAILS</h1>
+            <!-- border text -->
+            <legend class="ep">Enjoy Programming</legend>
+            <label for="text">First Name :
+                <input form="text" type="text" placeholder="First Name">
+            </label><br>
+            <br />
+            <label for="text">Last Name :
+                <input form="text" type="text" placeholder="Last Name">
+            </label><br>
+            <br />
+            <!-- system -->
+            <!-- 1st system -->
+            <label for="fname">
+                <h1>What Laptop Do You Own</h1>
+            </label>
+            <input for="Laptop" type="radio" name="Laptop">
+            <label for="Laptop"> Window</label><br />
+
+
+            <input for="Laptop" type="radio" name="Laptop">
+            <label for="Laptop"> Mac</label><br />
+
+
+            <input for="Laptop" type="radio" name="Laptop">
+            <label for="Laptop"> Lenovo</label><br />
+            <br />
+
+            <!-- education -->
+            <label for="education" id="text">
+                <h1> Select Your Education </h1>
+                <br />
+                <input for="Laptop" type="radio" name="Education">
+            </label>
+            <label for="Laptop"> Jr. College</label><br />
+            <!-- college-->
+
+            <input for="Laptop" type="radio" name="Education">
+            <label for="Laptop">Graduation</label><br />
+            <!-- graduation -->
+            <input for="Laptop" type="radio" name="Education">
+            <label for="Laptop">Post Graduation</label><br />
+            <!-- p . g -->
+
+            <input for="Laptop" type="radio" name="Education">
+            <label for="Laptop">PHD</label><br />
+            <br />
+            <br />
+           <button class="button">Submit</button>
+            <!-- . -->
+        </fieldset>
+
+    </form>
+</body>
+
+</html>

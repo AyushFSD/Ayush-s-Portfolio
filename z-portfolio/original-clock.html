@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Analog Clock</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #ecf0f1;
+        }
+
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .clock-title {
+            font-size: 24px;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .digital-time {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .clock {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 
+                0 14px 28px rgba(0, 0, 0, 0.25), 
+                0 10px 10px rgba(0, 0, 0, 0.22),
+                inset 0 0 0 12px #f0f0f0,
+                inset 0 0 0 15px #e0e0e0;
+            padding: 20px;
+        }
+
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hour-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hour-marker {
+            position: absolute;
+            width: 4px;
+            height: 15px;
+            background: #333;
+            transform-origin: center 150px;
+            border-radius: 2px;
+            left: calc(50% - 2px);
+        }
+        
+        .minute-marker {
+            position: absolute;
+            width: 2px;
+            height: 5px;
+            background: #666;
+            transform-origin: center 150px;
+            border-radius: 1px;
+            left: calc(50% - 1px);
+        }
+
+        .clock-brand {
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .hour-hand,
+        .minute-hand,
+        .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .hour-hand {
+            width: 8px;
+            height: 70px;
+            background: #333;
+            top: calc(50% - 70px);
+            left: calc(50% - 4px);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .minute-hand {
+            width: 6px;
+            height: 100px;
+            background: #555;
+            top: calc(50% - 100px);
+            left: calc(50% - 3px);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 120px;
+            background: #e74c3c;
+            top: calc(50% - 120px);
+            left: calc(50% - 1px);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-dot {
+            position: absolute;
+            background: #e74c3c;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            border: 3px solid #333;
+        }
+
+        .numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .number {
+            position: absolute;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .shadow-effect {
+            position: absolute;
+            width: 296px;
+            height: 296px;
+            border-radius: 50%;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock-container">
+        <h1 class="clock-title">Ayush Timepiece</h1>
+        <div class="clock">
+            <div class="clock-face">
+                <div class="hour-markers" id="hourMarkers"></div>
+                <div class="hour-hand"></div>
+                <div class="minute-hand"></div>
+                <div class="second-hand"></div>
+                <div class="center-dot"></div>
+                <div class="clock-brand">Ayush</div>
+                <div class="numbers" id="clockNumbers"></div>
+                <div class="shadow-effect"></div>
+            </div>
+        </div>
+        <div class="digital-time" id="digitalTime"></div>
+    </div>
+
+    <script>
+        // Create hour numbers
+        const clockNumbers = document.getElementById('clockNumbers');
+        const hourMarkers = document.getElementById('hourMarkers');
+        
+        // Create hour numbers
+        for (let i = 1; i <= 12; i++) {
+            const number = document.createElement('div');
+            number.className = 'number';
+            number.textContent = i;
+            
+            // Calculate position (radius is 120px)
+            const angle = (i * 30 - 90) * (Math.PI / 180);
+            const x = 120 * Math.cos(angle);
+            const y = 120 * Math.sin(angle);
+            
+            number.style.left = `calc(50% + ${x}px - 15px)`;
+            number.style.top = `calc(50% + ${y}px - 15px)`;
+            
+            clockNumbers.appendChild(number);
+        }
+        
+        // Create hour markers
+        for (let i = 0; i < 12; i++) {
+            const marker = document.createElement('div');
+            marker.className = 'hour-marker';
+            marker.style.transform = `rotate(${i * 30}deg)`;
+            hourMarkers.appendChild(marker);
+        }
+        
+        // Create minute markers
+        for (let i = 0; i < 60; i++) {
+            // Skip positions where we already have hour markers
+            if (i % 5 !== 0) {
+                const marker = document.createElement('div');
+                marker.className = 'minute-marker';
+                marker.style.transform = `rotate(${i * 6}deg)`;
+                hourMarkers.appendChild(marker);
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const milliseconds = now.getMilliseconds();
+
+            // Calculate precise angles including milliseconds for smooth movement
+            const hourDeg = (hours % 12) * 30 + (minutes * 0.5) + (seconds * 0.008);
+            const minDeg = minutes * 6 + (seconds * 0.1) + (milliseconds * 0.0001);
+            const secDeg = seconds * 6 + (milliseconds * 0.006);
+
+            document.querySelector('.hour-hand').style.transform = `rotate(${hourDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `rotate(${minDeg}deg)`;
+            document.querySelector('.second-hand').style.transform = `rotate(${secDeg}deg)`;
+            
+            // Update digital time display
+            const digitalDisplay = document.getElementById('digitalTime');
+            const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            
+            digitalDisplay.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+        }
+
+        // Initial update
+        updateClock();
+        
+        // Update every 50ms for smooth second hand movement
+        setInterval(updateClock, 50);
+    </script>
+</body>
+</html>

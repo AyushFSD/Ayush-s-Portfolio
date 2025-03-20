@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .main-container {
+            background-color: #fff;
+            width: 60vw;
+            margin: 10vh auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .display {
+            background-color: #3498db;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        .input-container {
+            padding: 20px;
+        }
+
+        .input-box {
+            height: 40px;
+            width: calc(100% - 40px);
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .button {
+            width: 100%;
+            height: 40px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <script>
+        function arithmaticExample(age) {
+            let output = "Full ticket";
+
+            if (age < 18) {
+                output = "Half Ticket";
+            }
+
+            document.getElementById("display").innerHTML = output;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="display" id="display">
+            <h1 class="display-text" id="display-text"></h1>
+        </div>
+        <div class="input-container">
+            <input id="input" type="number" class="input-box" placeholder="Enter Age" />
+            <button class="button" onclick="arithmaticExample(document.getElementById('input').value)">Check Age</button>
+        </div>
+    </div>
+</body>
+
+</html>

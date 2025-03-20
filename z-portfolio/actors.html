@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bollywood Stars</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1.main-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .actor-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .actor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .actor-name {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .actor-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .actor-image {
+            width: 300px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .actor-bio {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .wiki-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .wiki-link:hover {
+            background-color: #2980b9;
+        }
+        
+        .movies-section {
+            width: 100%;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .movie-item {
+            width: 30%;
+            margin-bottom: 15px;
+        }
+        
+        .movie-link {
+            display: block;
+            background-color: #f39c12;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .movie-link:hover {
+            background-color: #e67e22;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .movie-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="main-title">My Favorite Bollywood Actors</h1>
+        </header>
+        
+        <!-- Sanjay Dutt Card -->
+        <div class="actor-card">
+            <h2 class="actor-name">Sanjay Dutt</h2>
+            <div class="actor-content">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCB5VnSrrMj1qvBewrAlWcPYFI2gkSNX3jbT6TAV7TCWyjt4hOUd9tie7SASVwf0jAkbOC5pvb8qrREaKdSZBkg" alt="Sanjay Dutt" class="actor-image">
+                <a href="https://en.wikipedia.org/wiki/Sanjay_Dutt" class="wiki-link">About Sanjay Dutt</a>
+                
+                <div class="movies-section">
+                    <h3 class="section-title">Top 3 Movies</h3>
+                    <div class="movie-list">
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=example" class="movie-link">Luck</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=iKALdtWpHmg" class="movie-link">Tiger Zinda Hai</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.hotstar.com/in/movies/bodyguard/1000065771/watch" class="movie-link">Body Guard</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="actor-bio">
+                    Abdul Rashid Salim Salman Khan (pronounced [səlˈmɑːn xɑːn]; born 27 December 1965) is an Indian actor, film producer, and television personality who works predominantly in Hindi films.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Shah Rukh Khan Card -->
+        <div class="actor-card">
+            <h2 class="actor-name">Shah Rukh Khan (S.R.K.)</h2>
+            <div class="actor-content">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Shah_Rukh_Khan_in_2023_%281%29.jpg" alt="Shah Rukh Khan" class="actor-image">
+                <a href="https://en.wikipedia.org/wiki/Shah_Rukh_Khan" class="wiki-link">About S.R.K.</a>
+                
+                <div class="movies-section">
+                    <h3 class="section-title">Top 3 Movies</h3>
+                    <div class="movie-list">
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=v5lTnMsvxB0" class="movie-link">Jawan</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=-rMvyYMnK3c" class="movie-link">Pathaan</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=qOsAQwAn8D4" class="movie-link">RAEES</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="actor-bio">
+                    Shah Rukh Khan (pronounced [ˈʃɑːɦɾʊx xɑːn]; born 2 November 1965), also known by the initialism SRK, is an Indian actor and film producer who works in Hindi films. Referred to in the media as the "Baadshah of Bollywood" and "King Khan", he has appeared in more than 90 films, and earned numerous accolades.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tiger Shroff Card -->
+        <div class="actor-card">
+            <h2 class="actor-name">Tiger Shroff</h2>
+            <div class="actor-content">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_t5dTtmuMTbLQ_uhbMNp2jROlBQqEIDpYw&s" alt="Tiger Shroff" class="actor-image">
+                <a href="https://en.wikipedia.org/wiki/Tiger_Shroff" class="wiki-link">About Tiger Shroff</a>
+                
+                <div class="movies-section">
+                    <h3 class="section-title">Top 3 Movies</h3>
+                    <div class="movie-list">
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=Le1JwO39pv8" class="movie-link">War</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=wp0qtx6UFsk" class="movie-link">Baaghi</a>
+                        </div>
+                        <div class="movie-item">
+                            <a href="https://www.youtube.com/watch?v=RDVWelSUpCo" class="movie-link">A Flying Jatt</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="actor-bio">
+                    Jai Hemant Shroff (born 2 March 1990), known professionally as Tiger Shroff, is an Indian actor who works in Hindi films. Born to actors Jackie Shroff and Ayesha Dutt, he made his acting debut with the action romance Heropanti (2014), for which he won the IIFA Award for Star Debut of the Year – Male.
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2025 Bollywood Stars | All Rights Reserved
+        </footer>
+    </div>
+</body>
+</html>

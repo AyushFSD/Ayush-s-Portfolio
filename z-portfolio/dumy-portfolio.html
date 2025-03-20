@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Animated Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            background-color: #0a0a0a;
+            color: white;
+        }
+        
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .content {
+            position: relative;
+            padding: 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .menu a:hover {
+            color: #64ffda;
+        }
+        
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #64ffda;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.7s;
+        }
+        
+        .description {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.9s;
+        }
+        
+        .cta {
+            background-color: #64ffda;
+            color: #0a0a0a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.1s;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+        }
+        
+        .cta:hover {
+            background-color: #4fd8b8;
+        }
+        
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 1.5s;
+        }
+        
+        .scroll-text {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #64ffda;
+        }
+        
+        .scroll-icon {
+            width: 30px;
+            height: 50px;
+            border: 2px solid #64ffda;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .scroll-icon::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background-color: #64ffda;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: scrollDown 1.5s infinite;
+        }
+        
+        @keyframes scrollDown {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg"></canvas>
+    
+    <header class="header">
+        <div class="logo">PORTFOLIO</div>
+        <nav class="menu">
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <section id="home" class="content">
+        <h1 class="title">Creative Developer</h1>
+        <h2 class="subtitle">Bringing ideas to life through code & design</h2>
+        <p class="description">
+            I specialize in creating immersive digital experiences that blend cutting-edge technology with thoughtful design. Let's build something amazing together.
+        </p>
+        <button class="cta">View My Work</button>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll Down</div>
+            <div class="scroll-icon"></div>
+        </div>
+    </section>
+    
+    <section id="projects" class="section">
+        <h2 class="subtitle">Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/320" alt="Project 1" />
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Immersive VR Experience</h3>
+                    <div class="project-tags">
+                        <span class="tag">WebGL</span>
+                        <span class="tag">Three.js</span>
+                        <span class="tag">VR</span>
+                    </div>
+                    <p>An interactive virtual reality experience showcasing innovative 3D visualization techniques.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/320" alt="Project 2" />
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Data Visualization Dashboard</h3>
+                    <div class="project-tags">
+                        <span class="tag">D3.js</span>
+                        <span class="tag">React</span>
+                        <span class="tag">SVG</span>
+                    </div>
+                    <p>A dynamic dashboard that transforms complex data into beautiful, interactive visualizations.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="/api/placeholder/400/320" alt="Project 3" />
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">3D Product Configurator</h3>
+                    <div class="project-tags">
+                        <span class="tag">Three.js</span>
+                        <span class="tag">GLSL</span>
+                        <span class="tag">WebGL</span>
+                    </div>
+                    <p>An interactive 3D product configurator allowing users to customize and visualize products in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#bg'),
+            antialias: true
+        });
+        
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.setZ(30);
+        
+        // Lights
+        const pointLight = new THREE.PointLight(0xffffff);
+        pointLight.position.set(5, 5, 5);
+        
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(pointLight, ambientLight);
+        
+        // Stars
+        function addStar() {
+            const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+            const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+            const star = new THREE.Mesh(geometry, material);
+            
+            const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            
+            star.position.set(x, y, z);
+            scene.add(star);
+            return star;
+        }
+        
+        const stars = Array(200).fill().map(addStar);
+        
+        // Background
+        const spaceTexture = new THREE.Color(0x0a0a0a);
+        scene.background = spaceTexture;
+        
+        // Floating geometries
+        const geometries = [
+            new THREE.TorusGeometry(10, 3, 16, 100),
+            new THREE.IcosahedronGeometry(8, 0),
+            new THREE.OctahedronGeometry(6, 0),
+            new THREE.TetrahedronGeometry(7, 0)
+        ];
+        
+        const materials = [
+            new THREE.MeshStandardMaterial({ 
+                color: 0x64ffda,
+                wireframe: true
+            }),
+            new THREE.MeshStandardMaterial({ 
+                color: 0xff6464,
+                wireframe: true
+            }),
+            new THREE.MeshStandardMaterial({ 
+                color: 0x6464ff,
+                wireframe: true
+            }),
+            new THREE.MeshStandardMaterial({ 
+                color: 0xffff64,
+                wireframe: true
+            })
+        ];
+        
+        const meshes = [];
+        
+        for (let i = 0; i < 4; i++) {
+            const mesh = new THREE.Mesh(geometries[i], materials[i]);
+            mesh.position.set(
+                THREE.MathUtils.randFloatSpread(100),
+                THREE.MathUtils.randFloatSpread(100),
+                THREE.MathUtils.randFloatSpread(100)
+            );
+            mesh.rotation.set(
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI
+            );
+            mesh.scale.set(0.5, 0.5, 0.5);
+            scene.add(mesh);
+            meshes.push({
+                mesh,
+                rotationSpeed: {
+                    x: Math.random() * 0.01 - 0.005,
+                    y: Math.random() * 0.01 - 0.005,
+                    z: Math.random() * 0.01 - 0.005
+                }
+            });
+        }
+        
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotate meshes
+            meshes.forEach(item => {
+                item.mesh.rotation.x += item.rotationSpeed.x;
+                item.mesh.rotation.y += item.rotationSpeed.y;
+                item.mesh.rotation.z += item.rotationSpeed.z;
+            });
+            
+            // Subtle camera movement based on mouse position
+            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+            
+            // Rotate stars slightly
+            stars.forEach((star, index) => {
+                star.rotation.x += 0.0001;
+                star.rotation.y += 0.0001;
+                
+                // Make stars twinkle
+                const scale = 0.8 + Math.sin(Date.now() * 0.001 + index) * 0.2;
+                star.scale.set(scale, scale, scale);
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Button functionality
+        document.querySelector('.cta').addEventListener('click', () => {
+            document.querySelector('#projects').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

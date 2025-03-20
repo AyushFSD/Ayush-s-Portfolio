@@ -1,107 +1,114 @@
-// 3D Background Animation with Three.js
-const container = document.getElementById('canvas-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all project navigation items and categories
+    const projectNavItems = document.querySelectorAll('.project-nav-item');
+    const projectCategories = document.querySelectorAll('.project-category');
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-container.appendChild(renderer.domElement);
+    // Add click event to project navigation
+    projectNavItems.forEach(item => {
+        item.addEventListener('click', function () {
+            const targetId = this.getAttribute('data-target');
 
-// Create particles
-const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 2000;
+            projectNavItems.forEach(navItem => navItem.classList.remove('active'));
+            this.classList.add('active');
 
-const posArray = new Float32Array(particlesCount * 3);
+            projectCategories.forEach(category => category.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
 
-for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 15;
-}
+    // Fade-in animation for project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
 
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    projectCards.forEach(card => observer.observe(card));
 
-const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.02,
-    color: 0x00ff8c
+    // Project links placeholder alert
+    const projectLinks = document.querySelectorAll('.project-links a');
+    projectLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+                alert('Project link coming soon!');
+            }
+        });
+    });
+
+    // Mobile menu toggle functionality
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    body.appendChild(overlay);
+
+    function toggleMenu() {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        overlay.classList.toggle('active');
+        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', function () {
+            if (navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
 });
 
-const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particlesMesh);
-
-camera.position.z = 5;
-
-// Mouse movement effect
-let mouseX = 0;
-let mouseY = 0;
-
-function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - window.innerWidth / 2) / 100;
-    mouseY = (event.clientY - window.innerHeight / 2) / 100;
-}
-
-document.addEventListener('mousemove', onDocumentMouseMove);
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
-
-    particlesMesh.rotation.x += 0.0005;
-    particlesMesh.rotation.y += 0.0005;
-
-    // Follow mouse
-    particlesMesh.rotation.x += mouseY * 0.0003;
-    particlesMesh.rotation.y += mouseX * 0.0003;
-
-    renderer.render(scene, camera);
-}
-
-animate();
-
-// Mobile menu toggle
-const mobileMenu = document.querySelector('.mobile-menu');
-const navLinks = document.querySelector('.nav-links');
-
-mobileMenu.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-// Smooth scrolling for nav links
+// Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
 
-        navLinks.classList.remove('active');
-        mobileMenu.classList.remove('active');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
     });
 });
 
-// Scroll animations
-function revealOnScroll() {
-    const elements = document.querySelectorAll('.fade-in');
+// Active nav state based on scroll position
+window.addEventListener('scroll', function () {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let currentSection = '';
 
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('active');
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const headerHeight = document.querySelector('header').offsetHeight;
+        if (window.pageYOffset >= (sectionTop - headerHeight - 100)) {
+            currentSection = section.getAttribute('id');
         }
     });
-}
 
-window.addEventListener('scroll', revealOnScroll);
-
-// Trigger once on page load
-revealOnScroll();
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSection) {
+            link.classList.add('active');
+        }
+    });
+});

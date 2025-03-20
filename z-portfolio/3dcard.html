@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Card Flip Effect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            perspective: 1000px;
+        }
+        
+        .card-container {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+        }
+        
+        .card-back {
+            background: linear-gradient(135deg, #5ee7df, #b490ca);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            text-align: center;
+        }
+        
+        .instruction {
+            position: fixed;
+            bottom: 20px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="card-container">
+        <div class="card" id="card">
+            <div class="card-front">
+                <h2>Front Side</h2>
+                <p>This is the front of the card. Click to see the back side!</p>
+            </div>
+            <div class="card-back">
+                <h2>Back Side</h2>
+                <p>This is the back of the card. Click to flip it again!</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="instruction">Click the card to flip it</div>
+    
+    <script>
+        const card = document.getElementById('card');
+        const cardContainer = document.getElementById('card-container');
+        
+        cardContainer.addEventListener('click', function() {
+            card.classList.toggle('flipped');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iterative Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main {
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #e0f7fa;
+            width: 600px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00425A;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .display {
+            background-color: rgb(67, 69, 69);
+            min-height: 200px;
+            width: 100%;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            color: orange;
+            font-size: 18px;
+            font-family: monospace;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-box {
+            background-color: #00425A;
+            height: 40px;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            padding: 0 10px;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #2e7d32;
+            color: white;
+            height: 40px;
+            width: 200px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ccb400;
+            transform: scale(1.05);
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Iterative Program</h1>
+        <div class="main-container">
+            <div class="options-container">
+                <select id="program-select">
+                    <option value="simpleCount">Simple Counter (1-10)</option>
+                    <option value="userInputArray">User Input Array</option>
+                    <option value="sumOfNumbers">Sum of Numbers</option>
+                    <option value="displayArray">Display Array Elements</option>
+                    <option value="multiplicationTable">Multiplication Table</option>
+                </select>
+            </div>
+            
+            <div class="input-container">
+                <button class="button" onclick="runSelectedProgram()">Run Program</button>
+                <div class="display" id="output-display"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Display element reference
+        const display = document.getElementById('output-display');
+        
+        // Clear the display
+        function clearDisplay() {
+            display.innerHTML = '';
+        }
+        
+        // Add text to display
+        function addToDisplay(text) {
+            const line = document.createElement('div');
+            line.textContent = text;
+            display.appendChild(line);
+        }
+        
+        // Simple counter 1-10
+        function simpleCount() {
+            clearDisplay();
+            addToDisplay("Counting from 1 to 10:");
+            for (let i = 1; i <= 10; i++) {
+                addToDisplay(i.toString());
+            }
+        }
+        
+        // User input array
+        function userInputArray() {
+            clearDisplay();
+            let inputs = [];
+            
+            // Collect 3 user inputs
+            for (let i = 0; i < 3; i++) {
+                let value = prompt("Enter value for index " + i + ":");
+                inputs.push(value);
+                addToDisplay("Added value: " + value + " at index: " + i);
+            }
+            
+            // Display in reverse order
+            addToDisplay("\nDisplaying in reverse order:");
+            for (let y = 2; y >= 0; y--) {
+                addToDisplay("The output at index " + y + " is: " + inputs[y]);
+            }
+        }
+        
+        // Sum of numbers
+        function sumOfNumbers() {
+            clearDisplay();
+            let total = 0;
+            let count = 5;
+            
+            addToDisplay("Calculating sum of " + count + " numbers:");
+            
+            for (let i = 1; i <= count; i++) {
+                let num = Number(prompt("Enter number " + i + ":"));
+                addToDisplay("Number " + i + ": " + num);
+                total += num;
+            }
+            
+            addToDisplay("\nTotal sum: " + total);
+        }
+        
+        // Display array elements
+        function displayArray() {
+            clearDisplay();
+            let inputs = [11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 102, 103, 104, 105, 106];
+            
+            addToDisplay("Displaying array elements:");
+            let index = 0;
+            while (index < inputs.length) {
+                addToDisplay("ARRAY AT " + index + " is " + inputs[index]);
+                index++;
+            }
+        }
+        
+        // Multiplication table
+        function multiplicationTable() {
+            clearDisplay();
+            let num = prompt("Enter a number for multiplication table:");
+            
+            if (isNaN(num) || num === null || num === "") {
+                addToDisplay("Invalid input. Please enter a number.");
+                return;
+            }
+            
+            num = Number(num);
+            addToDisplay("Multiplication Table for " + num + ":");
+            
+            for (let i = 1; i <= 10; i++) {
+                addToDisplay(num + " × " + i + " = " + (num * i));
+            }
+        }
+        
+        // Run the selected program
+        function runSelectedProgram() {
+            const select = document.getElementById('program-select');
+            const selected = select.value;
+            
+            switch (selected) {
+                case 'simpleCount':
+                    simpleCount();
+                    break;
+                case 'userInputArray':
+                    userInputArray();
+                    break;
+                case 'sumOfNumbers':
+                    sumOfNumbers();
+                    break;
+                case 'displayArray':
+                    displayArray();
+                    break;
+                case 'multiplicationTable':
+                    multiplicationTable();
+                    break;
+                default:
+                    addToDisplay("Please select a program to run.");
+            }
+        }
+    </script>
+</body>
+
+</html>

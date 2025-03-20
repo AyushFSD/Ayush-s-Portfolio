@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube-Style Video Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #f9f9f9;
+      color: #030303;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 56px;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-right: 24px;
+      color: #ff0000;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    
+    .search {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      max-width: 640px;
+      margin: 0 40px;
+    }
+    
+    .search input {
+      flex: 1;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 2px 0 0 2px;
+      font-size: 16px;
+    }
+    
+    .search-button {
+      height: 40px;
+      width: 64px;
+      background-color: #f8f8f8;
+      border: 1px solid #ccc;
+      border-left: none;
+      border-radius: 0 2px 2px 0;
+      cursor: pointer;
+    }
+    
+    main {
+      display: flex;
+      margin-top: 56px;
+      padding: 24px 16px;
+    }
+    
+    .video-container {
+      flex: 1;
+      margin-right: 24px;
+    }
+    
+    .primary-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background-color: #000;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .video-info {
+      margin-bottom: 24px;
+    }
+    
+    .video-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    
+    .video-stats {
+      display: flex;
+      align-items: center;
+      color: #606060;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    
+    .video-stats span {
+      margin-right: 12px;
+    }
+    
+    .channel-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .channel-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin-right: 12px;
+    }
+    
+    .channel-text h3 {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .channel-text p {
+      color: #606060;
+      font-size: 13px;
+    }
+    
+    .subscribe-button {
+      margin-left: auto;
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 2px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .suggested-videos {
+      width: 400px;
+    }
+    
+    .suggested-video {
+      display: flex;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    
+    .thumbnail {
+      width: 168px;
+      height: 94px;
+      background-color: #ccc;
+      margin-right: 8px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-length {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      font-size: 12px;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+    
+    .video-details {
+      flex: 1;
+    }
+    
+    .video-details h3 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .video-details p {
+      color: #606060;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    
+    @media (max-width: 1000px) {
+      main {
+        flex-direction: column;
+      }
+      
+      .video-container {
+        margin-right: 0;
+        margin-bottom: 24px;
+      }
+      
+      .suggested-videos {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span>YouTube</span>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search">
+      <button class="search-button">🔍</button>
+    </div>
+  </header>
+  
+  <main>
+    <div class="video-container">
+      <div class="primary-video">
+        <video width="100%" height="100%" controls>
+          <source src="/api/placeholder/720/480" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      <div class="video-info">
+        <h1 class="video-title">Professional Web Development Tutorial - HTML, CSS & JavaScript</h1>
+        <div class="video-stats">
+          <span>245,678 views</span>
+          <span>•</span>
+          <span>2 weeks ago</span>
+        </div>
+        
+        <div class="channel-info">
+          <div class="channel-avatar"></div>
+          <div class="channel-text">
+            <h3>CodeMaster</h3>
+            <p>1.2M subscribers</p>
+          </div>
+          <button class="subscribe-button">Subscribe</button>
+        </div>
+        
+        <div class="video-description">
+          <p>Learn web development from scratch in this comprehensive tutorial. We cover HTML structure, CSS styling, and JavaScript interactivity to help you build professional websites.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="suggested-videos">
+      <div class="suggested-video" onclick="loadVideo(1)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">14:25</div>
+        </div>
+        <div class="video-details">
+          <h3>CSS Grid Layout Made Simple - Web Design Tutorial</h3>
+          <p>CodeMaster</p>
+          <p>125K views • 3 weeks ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(2)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">8:12</div>
+        </div>
+        <div class="video-details">
+          <h3>JavaScript Event Listeners - Interactive Web Development</h3>
+          <p>WebDev Simplified</p>
+          <p>89K views • 1 month ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(3)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">22:48</div>
+        </div>
+        <div class="video-details">
+          <h3>Responsive Design in 2025 - Mobile First Approach</h3>
+          <p>Frontend Masters</p>
+          <p>210K views • 2 days ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(4)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">18:05</div>
+        </div>
+        <div class="video-details">
+          <h3>Modern CSS Frameworks Comparison - Bootstrap vs Tailwind vs Bulma</h3>
+          <p>CSS Tricks</p>
+          <p>78K views • 1 week ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(5)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">11:36</div>
+        </div>
+        <div class="video-details">
+          <h3>Web Accessibility - Making Your Sites Work For Everyone</h3>
+          <p>A11y Expert</p>
+          <p>45K views • 5 days ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(6)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">25:17</div>
+        </div>
+        <div class="video-details">
+          <h3>React vs Vue vs Angular - Which Framework Should You Learn in 2025?</h3>
+          <p>JS Frameworks</p>
+          <p>312K views • 3 days ago</p>
+        </div>
+      </div>
+      
+      <div class="suggested-video" onclick="loadVideo(7)">
+        <div class="thumbnail">
+          <img src="https://t4.ftcdn.net/jpg/02/55/94/55/360_F_255945532_gXYb4gPaatBY39i9KIte3K38KH3lJYIq.jpg" alt="Tutorial thumbnail">
+          <div class="video-length">9:48</div>
+        </div>
+        <div class="video-details">
+          <h3>Build a Dark Mode Toggle with CSS Variables and JavaScript</h3>
+          <p>CodeMaster</p>
+          <p>67K views • 2 weeks ago</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function loadVideo(id) {
+      // This would normally load a new video
+      // For this demo, we'll just show an alert
+      alert("Loading video " + id);
+      
+      // In a real implementation, we would change the video source
+      // document.querySelector('.primary-video video').src = 'new-video-url.mp4';
+      // And update the title, views, etc.
+    }
+    
+    // Adding click event to subscribe button
+    document.querySelector('.subscribe-button').addEventListener('click', function() {
+      if (this.textContent === 'Subscribe') {
+        this.textContent = 'Subscribed';
+        this.style.backgroundColor = '#606060';
+      } else {
+        this.textContent = 'Subscribe';
+        this.style.backgroundColor = '#cc0000';
+      }
+    });
+  </script>
+</body>
+</html>

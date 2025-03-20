@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Checker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    
+    .app-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .display {
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .display-text {
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .error {
+      color: #e53935;
+    }
+    
+    .success {
+      color: #43a047;
+    }
+    
+    .warning {
+      color: #fb8c00;
+    }
+    
+    .info {
+      color: #1e88e5;
+    }
+    
+    .input-section {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .input-field {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+    
+    .input-field::placeholder {
+      color: #aaa;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+    
+    .button:hover {
+      background-color: #3e8e41;
+    }
+    
+    .button:active {
+      transform: scale(0.98);
+    }
+    
+    .button:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+    }
+
+    .even-odd { background-color: #4CAF50; }
+    .vote { background-color: #2196F3; }
+    .equal { background-color: #FF9800; }
+    
+    .result-animation {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 480px) {
+      .input-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="app-title">Number Checker Tool</h1>
+    <div class="display">
+      <h2 id="display-text" class="display-text">Results will appear here</h2>
+    </div>
+    
+    <div class="input-section">
+      <input type="number" id="input-one" class="input-field" placeholder="Enter first number" aria-label="First number">
+      <input type="number" id="input-two" class="input-field" placeholder="Enter second number" aria-label="Second number">
+    </div>
+    
+    <div class="button-group">
+      <button class="button even-odd" onclick="checkEvenOrOdd()">Check Even or Odd</button>
+      <button class="button vote" onclick="checkVotingEligibility()">Check Voting Eligibility</button>
+      <button class="button equal" onclick="checkEquality()">Check Equality</button>
+    </div>
+  </div>
+  
+  <script>
+    // Add event listeners for Enter key
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('input-one').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkEvenOrOdd();
+        }
+      });
+      
+      document.getElementById('input-two').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkEquality();
+        }
+      });
+    });
+    
+    // Displays a message with an optional status class
+    function displayMessage(message, status = null) {
+      const displayText = document.getElementById("display-text");
+      
+      // Reset any previous status classes
+      displayText.className = "display-text";
+      
+      // Add status class if provided
+      if (status) {
+        displayText.classList.add(status);
+      }
+      
+      // Add animation class
+      displayText.classList.add('result-animation');
+      
+      // Set the message
+      displayText.innerHTML = message;
+      
+      // Remove animation class after animation completes
+      setTimeout(() => {
+        displayText.classList.remove('result-animation');
+      }, 300);
+    }
+    
+    // Validate that input has a value
+    function validateInput(inputId, errorMessage) {
+      const input = document.getElementById(inputId);
+      if (input.value.trim() === "") {
+        displayMessage(errorMessage, "error");
+        input.focus();
+        return false;
+      }
+      return true;
+    }
+    
+    // Check if a number is even or odd
+    function checkEvenOrOdd() {
+      if (!validateInput("input-one", "Please enter a number")) return;
+      
+      const num = parseInt(document.getElementById("input-one").value);
+      
+      if (isNaN(num)) {
+        displayMessage("Please enter a valid number", "error");
+        return;
+      }
+      
+      const result = num % 2 === 0 ? 
+        `<span class="success">${num}</span> is an <strong>Even Number</strong>` : 
+        `<span class="warning">${num}</span> is an <strong>Odd Number</strong>`;
+      
+      displayMessage(result);
+    }
+    
+    // Check if a person is eligible to vote
+    function checkVotingEligibility() {
+      if (!validateInput("input-one", "Please enter your age")) return;
+      
+      const age = parseInt(document.getElementById("input-one").value);
+      
+      if (isNaN(age)) {
+        displayMessage("Please enter a valid age", "error");
+        return;
+      }
+      
+      if (age < 0 || age > 150) {
+        displayMessage("Please enter a realistic age (0-150)", "error");
+        return;
+      }
+      
+      if (age >= 18) {
+        displayMessage(`At age <span class="success">${age}</span>, you are <strong>eligible to vote</strong>`, "info");
+      } else {
+        const yearsLeft = 18 - age;
+        displayMessage(`At age <span class="warning">${age}</span>, you are <strong>not eligible to vote</strong>.<br>You will be eligible in ${yearsLeft} year${yearsLeft !== 1 ? 's' : ''}.`, "info");
+      }
+    }
+    
+    // Check if two numbers are equal
+    function checkEquality() {
+      if (!validateInput("input-one", "Please enter the first number")) return;
+      if (!validateInput("input-two", "Please enter the second number")) return;
+      
+      const num1 = parseFloat(document.getElementById("input-one").value);
+      const num2 = parseFloat(document.getElementById("input-two").value);
+      
+      if (isNaN(num1) || isNaN(num2)) {
+        displayMessage("Please enter valid numbers", "error");
+        return;
+      }
+      
+      if (num1 === num2) {
+        displayMessage(`<span class="success">${num1}</span> and <span class="success">${num2}</span> are <strong>equal</strong>`, "success");
+      } else {
+        const difference = Math.abs(num1 - num2);
+        displayMessage(`<span class="warning">${num1}</span> and <span class="warning">${num2}</span> are <strong>not equal</strong><br>Difference: ${difference}`, "warning");
+      }
+    }
+  </script>
+</body>
+</html>

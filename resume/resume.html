@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Sunil Lolusare - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* A4 size in pixels (assuming 96 DPI): 210mm × 297mm = 794px × 1123px */
+        .resume-container {
+            width: 794px;
+            height: 1123px;
+            margin: 30px auto;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+
+        .left-column {
+            flex: 1;
+            padding: 25px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .right-column {
+            flex: 2;
+            padding: 25px;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        .name {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            padding-bottom: 5px;
+        }
+
+        .left-column .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #ecf0f1;
+        }
+
+        .right-column .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #2c3e50;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .contact-icon {
+            width: 20px;
+            margin-right: 8px;
+            text-align: center;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .skill-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+
+        .experience-item, .education-item, .project-item {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .experience-item::before, .education-item::before, .project-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #2c3e50;
+        }
+
+        .date {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 3px;
+        }
+
+        .role, .degree {
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        .company, .school {
+            font-style: italic;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .description {
+            font-size: 12px;
+            margin-top: 5px;
+            position: relative;
+            padding-top: 5px;
+        }
+
+        .description::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-image: linear-gradient(to right, #bdc3c7 50%, transparent 50%);
+            background-size: 8px 1px;
+        }
+
+        .technical-container {
+            margin-bottom: 20px;
+        }
+
+        .technical-item {
+            margin-bottom: 8px;
+        }
+
+        .technical-name {
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .technical-level {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .technical-level-fill {
+            height: 100%;
+            background-color: #3498db;
+        }
+
+        .certifications-list {
+            list-style-type: none;
+        }
+
+        .certification-item {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+            font-size: 13px;
+        }
+
+        .certification-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+        }
+
+        /* Print styles for A4 */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: #fff;
+            }
+            
+            .resume-container {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 800px) {
+            .resume-container {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+            }
+
+            .left-column, .right-column {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="left-column">
+            <img class="profile-image" src="../assets/images/profile_pic_BackgroundRemoved.png" alt="Profile Picture">
+            <h1 class="name">Ayush Sunil Lolusare</h1>
+            <p class="title">Full Stack Developer | AI Student</p>
+
+            <div class="contact-info">
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>ayush.lolusare@email.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <span>+91 9876543210</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🔗</span>
+                    <span>linkedin.com/in/ayushlolusare</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <span>github.com/ayushlolusare</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>Nagpur, Maharashtra</span>
+                </div>
+            </div>
+
+            <div class="skills">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-list">
+                    <span class="skill-item">HTML5</span>
+                    <span class="skill-item">CSS3</span>
+                    <span class="skill-item">JavaScript</span>
+                    <span class="skill-item">React</span>
+                    <span class="skill-item">Node.js</span>
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">SQL</span>
+                    <span class="skill-item">MongoDB</span>
+                    <span class="skill-item">Git</span>
+                    <span class="skill-item">Responsive Design</span>
+                    <span class="skill-item">API Integration</span>
+                    <span class="skill-item">Machine Learning</span>
+                </div>
+            </div>
+
+            <div class="technical">
+                <h2 class="section-title">Technical Expertise</h2>
+                <div class="technical-container">
+                    <div class="technical-item">
+                        <div class="technical-name">Front-end Development</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">Back-end Development</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">Database Management</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">AI/ML Basics</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">Problem Solving</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="languages">
+                <h2 class="section-title">Languages</h2>
+                <div class="technical-container">
+                    <div class="technical-item">
+                        <div class="technical-name">English</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">Hindi</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="technical-item">
+                        <div class="technical-name">Marathi</div>
+                        <div class="technical-level">
+                            <div class="technical-level-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="education">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <p class="date">2024 - Present</p>
+                    <p class="degree">B.Tech in Artificial Intelligence (1st Year)</p>
+                    <p class="school">RTMNU University</p>
+                    <div class="description">
+                        <p>Currently pursuing first year of B.Tech in Artificial Intelligence, focusing on core programming concepts, mathematics, and fundamentals of AI and machine learning.</p>
+                    </div>
+                </div>
+                <div class="education-item">
+                    <p class="date">2023 - Present</p>
+                    <p class="degree">Full Stack Web Development Course</p>
+                    <p class="school">Enjoy Programming</p>
+                    <div class="description">
+                        <p>Comprehensive training in full stack web development, covering front-end technologies, back-end development, database management, and deployment strategies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience">
+                <h2 class="section-title">Coding Experience</h2>
+                <div class="experience-item">
+                    <p class="date">2022 - Present (1.5+ years)</p>
+                    <p class="role">Programming Languages & Technologies</p>
+                    <div class="description">
+                        <p>Proficient in multiple programming languages and technologies including HTML, CSS, JavaScript, Python, SQL, and more. Developed various projects to strengthen practical implementation skills.</p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <p class="date">2023 - Present</p>
+                    <p class="role">Full Stack Web Developer (Student)</p>
+                    <div class="description">
+                        <p>Creating responsive and interactive web applications using modern frameworks and libraries. Implementing both front-end interfaces and back-end functionality for various projects.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projects">
+                <h2 class="section-title">Projects</h2>
+                <div class="project-item">
+                    <p class="role">Personal Portfolio Website</p>
+                    <div class="description">
+                        <p>Developed a responsive personal portfolio website using HTML, CSS, and JavaScript. Implemented modern design principles and optimized for various screen sizes.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <p class="role">Task Management Application</p>
+                    <div class="description">
+                        <p>Created a task management web application using React for the front-end and Node.js for the back-end. Features include user authentication, task creation, deletion, and categorization.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <p class="role">E-commerce Product Page</p>
+                    <div class="description">
+                        <p>Designed and implemented a responsive e-commerce product page with filtering options, search functionality, and a shopping cart system using JavaScript and CSS.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certifications">
+                <h2 class="section-title">Certifications</h2>
+                <ul class="certifications-list">
+                    <li class="certification-item">Web Development Fundamentals - Enjoy Programming</li>
+                    <li class="certification-item">JavaScript Basics - freeCodeCamp</li>
+                    <li class="certification-item">Introduction to Python Programming - Coursera</li>
+                    <li class="certification-item">Responsive Web Design - Udemy</li>
+                </ul>
+            </div>
+
+            <div class="interests">
+                <h2 class="section-title">Interests</h2>
+                <p style="font-size: 13px;">Artificial Intelligence, Machine Learning, Web Development, Competitive Programming, Open Source Contribution, Tech Innovations</p>
+            </div>
+
+            <div class="references">
+                <h2 class="section-title">References</h2>
+                <p style="font-size: 13px;">Available upon request</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight skills on hover
+            const skillItems = document.querySelectorAll('.skill-item');
+            skillItems.forEach(item => {
+                item.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                item.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Animate technical expertise bars on page load
+            const techBars = document.querySelectorAll('.technical-level-fill');
+            techBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                    bar.style.transition = 'width 1s ease-in-out';
+                }, 300);
+            });
+
+            // Generate PDF button functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print/Save as PDF';
+            printButton.style.position = 'fixed';
+            printButton.style.bottom = '20px';
+            printButton.style.right = '20px';
+            printButton.style.padding = '10px 15px';
+            printButton.style.backgroundColor = '#2c3e50';
+            printButton.style.color = 'white';
+            printButton.style.border = 'none';
+            printButton.style.borderRadius = '5px';
+            printButton.style.cursor = 'pointer';
+            printButton.style.fontFamily = "'Segoe UI', sans-serif";
+            printButton.style.zIndex = '1000';
+            
+            printButton.addEventListener('click', function() {
+                window.print();
+            });
+            
+            document.body.appendChild(printButton);
+            
+            // Hide button when printing
+            const style = document.createElement('style');
+            style.textContent = '@media print { button { display: none; } }';
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

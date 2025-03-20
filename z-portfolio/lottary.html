@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Lottery Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .game-area {
+            padding: 30px;
+        }
+
+        .display-container {
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .display-text {
+            font-size: 22px;
+            text-align: center;
+            color: #1f2937;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .coins-highlight {
+            color: #4f46e5;
+            font-weight: 700;
+            font-size: 26px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .result-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin: 10px 0;
+        }
+
+        .loader {
+            border: 4px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50%;
+            border-top: 4px solid #6366f1;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            line-height: 1.5;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #6366f1;
+            outline: 0;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 12px 16px;
+            font-size: 16px;
+            line-height: 1.5;
+            border-radius: 6px;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+            border-color: #4338ca;
+        }
+
+        .error-text {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .win-animation {
+            animation: celebrate 1s ease-in-out;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            Premium Lottery Game
+        </div>
+        
+        <div class="game-area">
+            <div class="display-container" id="display">
+                <div class="loader" id="loader"></div>
+                <div class="display-text" id="display-text"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="input" class="form-label">Select Number (0-9)</label>
+                <input id="input" type="number" min="0" max="9" class="form-control" placeholder="Enter your lucky number">
+                <div id="number-error" class="error-text"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="coins" class="form-label">Bet Amount</label>
+                <input id="coins" type="number" min="10" class="form-control" placeholder="Enter bet amount">
+                <div id="coins-error" class="error-text"></div>
+            </div>
+
+            <button class="btn btn-primary" id="play-button" onclick="startPlay()">PLACE BET</button>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-label">Available Balance</div>
+                    <div class="stat-value" id="balance">500</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Winning Odds</div>
+                    <div class="stat-value">1:10</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Payout</div>
+                    <div class="stat-value">9x</div>
+                </div>
+            </div>
+
+            <div class="info-text">
+                Pick a number between 0-9. If you match the lottery number, you win 9x your bet!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let coins = 500;
+        let plays = 0;
+        let wins = 0;
+
+        function validateInputs() {
+            const betNumber = parseInt(document.getElementById("input").value);
+            const betCoins = parseInt(document.getElementById("coins").value);
+            let isValid = true;
+
+            // Reset error messages
+            document.getElementById("number-error").textContent = "";
+            document.getElementById("coins-error").textContent = "";
+
+            // Validate bet number
+            if (isNaN(betNumber) || betNumber < 0 || betNumber > 9) {
+                document.getElementById("number-error").textContent = "Please enter a number between 0 and 9";
+                isValid = false;
+            }
+
+            // Validate bet amount
+            if (isNaN(betCoins) || betCoins <= 0) {
+                document.getElementById("coins-error").textContent = "Please enter a valid bet amount";
+                isValid = false;
+            } else if (betCoins > coins) {
+                document.getElementById("coins-error").textContent = "Insufficient balance for this bet";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function startPlay() {
+            if (!validateInputs()) {
+                return;
+            }
+
+            const playButton = document.getElementById("play-button");
+            playButton.disabled = true;
+            playButton.textContent = "Drawing...";
+            
+            document.getElementById("display-text").innerHTML = "";
+            document.getElementById("loader").style.display = "block";
+            
+            setTimeout(() => {
+                startLottery();
+                playButton.disabled = false;
+                playButton.textContent = "PLACE BET";
+            }, 2000);
+        }
+
+        function startLottery() {
+            document.getElementById("loader").style.display = "none";
+            
+            let output = Math.floor(Math.random() * 10); // Random number between 0-9
+            let betCoins = parseInt(document.getElementById("coins").value);
+            let betNumber = parseInt(document.getElementById("input").value);
+            
+            plays++;
+            let resultHtml = "";
+            
+            if (betNumber === output) {
+                // Win
+                wins++;
+                const winnings = betCoins * 9;
+                coins += winnings;
+                
+                resultHtml = `
+                    <div class="win-animation">
+                        <p>Congratulations! 🎉</p>
+                        <div class="result-number">${output}</div>
+                        <p>You won ${winnings} coins!</p>
+                        <span class="coins-highlight">Balance: ${coins} coins</span>
+                    </div>
+                `;
+                
+                // Add celebration effect
+                document.querySelector(".display-container").classList.add("win-animation");
+                setTimeout(() => {
+                    document.querySelector(".display-container").classList.remove("win-animation");
+                }, 1000);
+            } else {
+                // Loss
+                coins -= betCoins;
+                
+                resultHtml = `
+                    <p>The number was:</p>
+                    <div class="result-number">${output}</div>
+                    <p>You guessed: ${betNumber}</p>
+                    <span class="coins-highlight">Balance: ${coins} coins</span>
+                `;
+            }
+            
+            document.getElementById("display-text").innerHTML = resultHtml;
+            document.getElementById("balance").textContent = coins;
+        }
+
+        window.onload = function () {
+            document.getElementById("display-text").innerHTML = `
+                <p>Welcome to Premium Lottery!</p>
+                <span class="coins-highlight">Balance: ${coins} coins</span>
+            `;
+            document.getElementById("loader").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

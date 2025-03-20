@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional FAQ Page</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header-description {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Search Box Styles */
+        .search-container {
+            padding: 20px 40px;
+            background-color: #f1f3f5;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .search-box button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* FAQ Section Styles */
+        .faq-section {
+            padding: 40px;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover {
+            background-color: #dee2e6;
+        }
+        
+        .category-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .faq-list {
+            list-style: none;
+        }
+        
+        .faq-item {
+            margin-bottom: 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 18px 20px;
+            background-color: #f8f9fa;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f1f3f5;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 22px;
+            color: #6c757d;
+        }
+        
+        .faq-item.active .faq-question {
+            background-color: #e9ecef;
+        }
+        
+        .faq-item.active .faq-question::after {
+            content: '−';
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 1000px; /* Arbitrary large height */
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 30px 40px;
+            background-color: #f1f3f5;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .contact-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header, .faq-section, footer {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .search-container {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Frequently Asked Questions</h1>
+            <p class="header-description">Find answers to the most common questions about our products and services.</p>
+        </header>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for questions...">
+                <button>Search</button>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <div class="faq-categories">
+                <button class="category-btn active">All</button>
+                <button class="category-btn">Account</button>
+                <button class="category-btn">Billing</button>
+                <button class="category-btn">Products</button>
+                <button class="category-btn">Shipping</button>
+                <button class="category-btn">Returns</button>
+            </div>
+            
+            <ul class="faq-list">
+                <li class="faq-item active">
+                    <div class="faq-question">How do I create an account?</div>
+                    <div class="faq-answer">
+                        <p>Creating an account is simple! Click on the "Sign Up" button in the top right corner of our website. You'll need to provide your email address, create a password, and fill in some basic information. Once you've completed these steps, we'll send a verification email to your inbox. Click the link in that email to verify your account, and you're all set!</p>
+                    </div>
+                </li>
+                
+                <li class="faq-item">
+                    <div class="faq-question">What payment methods do you accept?</div>
+                    <div class="faq-answer">
+                        <p>We accept a variety of payment methods for your convenience:</p>
+                        <ul style="margin-left: 20px; padding-top: 10px;">
+                            <li>Credit/Debit Cards (Visa, Mastercard, American Express, Discover)</li>
+                            <li>PayPal</li>
+                            <li>Apple Pay</li>
+                            <li>Google Pay</li>
+                            <li>Bank Transfers</li>
+                        </ul>
+                        <p style="padding-top: 10px;">All payments are processed securely through our encrypted payment gateway.</p>
+                    </div>
+                </li>
+                
+                <li class="faq-item">
+                    <div class="faq-question">How long does shipping take?</div>
+                    <div class="faq-answer">
+                        <p>Shipping times vary depending on your location and the shipping method you choose:</p>
+                        <ul style="margin-left: 20px; padding-top: 10px;">
+                            <li><strong>Standard Shipping:</strong> 5-7 business days</li>
+                            <li><strong>Express Shipping:</strong> 2-3 business days</li>
+                            <li><strong>Next Day Delivery:</strong> 1 business day (order must be placed before 2 PM)</li>
+                        </ul>
+                        <p style="padding-top: 10px;">Please note that these are estimated delivery times and may vary during peak seasons or due to unforeseen circumstances.</p>
+                    </div>
+                </li>
+                
+                <li class="faq-item">
+                    <div class="faq-question">What is your return policy?</div>
+                    <div class="faq-answer">
+                        <p>We want you to be completely satisfied with your purchase. If you're not, we offer a 30-day return policy from the date of delivery. Items must be in their original condition with all tags and packaging intact.</p>
+                        <p style="padding-top: 10px;">To initiate a return, please visit the "Orders" section in your account and select the "Return" option for the relevant item. You'll receive a return shipping label via email. Once we receive and inspect the returned item, we'll process your refund within 5-7 business days.</p>
+                        <p style="padding-top: 10px;">Please note that personalized items and final sale merchandise cannot be returned unless there is a defect.</p>
+                    </div>
+                </li>
+                
+                <li class="faq-item">
+                    <div class="faq-question">How can I track my order?</div>
+                    <div class="faq-answer">
+                        <p>You can easily track your order by following these steps:</p>
+                        <ol style="margin-left: 20px; padding-top: 10px;">
+                            <li>Log into your account</li>
+                            <li>Navigate to "My Orders"</li>
+                            <li>Find the order you want to track</li>
+                            <li>Click on "Track Package"</li>
+                        </ol>
+                        <p style="padding-top: 10px;">You'll also receive tracking information via email once your order has been shipped. If you checked out as a guest, you can use the order number and email address provided during checkout to track your order on our "Order Tracking" page.</p>
+                    </div>
+                </li>
+                
+                <li class="faq-item">
+                    <div class="faq-question">Do you offer international shipping?</div>
+                    <div class="faq-answer">
+                        <p>Yes, we ship to over 100 countries worldwide! International shipping rates and delivery times vary by location. You can see the estimated shipping cost and delivery time by entering your shipping address during checkout before completing your purchase.</p>
+                        <p style="padding-top: 10px;">Please note that international orders may be subject to import duties, taxes, and customs clearance fees imposed by the destination country. These additional charges are the responsibility of the recipient and are not included in our shipping fees.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>Didn't find what you were looking for? <a href="#" class="contact-link">Contact our support team</a></p>
+            <p style="margin-top: 10px;">&copy; 2025 Your Company Name. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple script to toggle FAQ answers
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Simple script for category buttons
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                // In a real application, this would filter the FAQ items based on category
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+            font-size: 15px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(76, 175, 80, 0.4);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .result h2 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .result p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .bill-info {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+            margin-top: 15px;
+        }
+
+        .total-amount {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 18px;
+            color: #2e7d32;
+            text-align: right;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .rate-selector {
+            margin-bottom: 20px;
+        }
+        
+        .animated {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo span {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .error {
+            color: #f44336;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            input[type="text"],
+            input[type="number"],
+            select {
+                padding: 12px;
+            }
+            
+            button {
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-image: url(/api/placeholder/1920/1080);
+    background-attachment: fixed;
+    background-position: center; 
+    background-size: cover;
+    background-repeat: no-repeat;">
+
+    <div class="container animated">
+        <div class="header">
+            <div class="logo">
+                <span>⚡</span>
+            </div>
+            <h1>Electricity Bill Calculator</h1>
+            <p class="subtitle">Calculate your monthly electricity bill with ease</p>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Customer Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+            <div id="nameError" class="error">Please enter your name</div>
+        </div>
+
+        <div class="form-group">
+            <label for="consumerID">Consumer ID/Number:</label>
+            <input type="text" id="consumerID" placeholder="Enter your consumer ID">
+        </div>
+
+        <div class="form-group">
+            <label for="address">Billing Address:</label>
+            <input type="text" id="address" placeholder="Enter your complete address" required>
+            <div id="addressError" class="error">Please enter your address</div>
+        </div>
+
+        <div class="form-group">
+            <label for="rateCategory">Consumer Category:</label>
+            <select id="rateCategory" onchange="updateRates()">
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+                <option value="industrial">Industrial</option>
+                <option value="agricultural">Agricultural</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="previousReading">Previous Meter Reading (kWh):</label>
+            <input type="number" id="previousReading" placeholder="Enter previous meter reading" value="0" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="currentReading">Current Meter Reading (kWh):</label>
+            <input type="number" id="currentReading" placeholder="Enter current meter reading" required>
+            <div id="readingError" class="error">Please enter a valid meter reading</div>
+        </div>
+
+        <div class="btn-container">
+            <button onclick="calculateBill()">Calculate Bill</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Set focus on the name field when page loads
+        window.onload = function() {
+            document.getElementById('name').focus();
+        };
+
+        // Update rates based on selected category
+        function updateRates() {
+            const category = document.getElementById('rateCategory').value;
+            // These rates can be adjusted based on actual rates
+            switch(category) {
+                case 'residential':
+                    return 7.50;
+                case 'commercial':
+                    return 10.50;
+                case 'industrial':
+                    return 12.00;
+                case 'agricultural':
+                    return 5.50;
+                default:
+                    return 7.50;
+            }
+        }
+        
+        // Validate inputs
+        function validateInputs() {
+            let isValid = true;
+            
+            const name = document.getElementById('name').value.trim();
+            const nameError = document.getElementById('nameError');
+            if (name === '') {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+            
+            const address = document.getElementById('address').value.trim();
+            const addressError = document.getElementById('addressError');
+            if (address === '') {
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                addressError.style.display = 'none';
+            }
+            
+            const currentReading = parseFloat(document.getElementById('currentReading').value);
+            const previousReading = parseFloat(document.getElementById('previousReading').value);
+            const readingError = document.getElementById('readingError');
+            
+            if (isNaN(currentReading) || currentReading < previousReading) {
+                readingError.style.display = 'block';
+                readingError.textContent = isNaN(currentReading) ? 
+                    'Please enter a valid meter reading' : 
+                    'Current reading must be greater than previous reading';
+                isValid = false;
+            } else {
+                readingError.style.display = 'none';
+            }
+            
+            return isValid;
+        }
+
+        function calculateBill() {
+            if (!validateInputs()) {
+                return;
+            }
+            
+            const name = document.getElementById('name').value;
+            const consumerID = document.getElementById('consumerID').value || 'N/A';
+            const address = document.getElementById('address').value;
+            const category = document.getElementById('rateCategory').value;
+            const previousReading = parseFloat(document.getElementById('previousReading').value) || 0;
+            const currentReading = parseFloat(document.getElementById('currentReading').value);
+            const unitRate = updateRates();
+            
+            const unitsConsumed = currentReading - previousReading;
+            let billAmount = unitsConsumed * unitRate;
+            
+            // Add fixed charges based on category
+            let fixedCharge = 0;
+            switch(category) {
+                case 'residential':
+                    fixedCharge = 100;
+                    break;
+                case 'commercial':
+                    fixedCharge = 250;
+                    break;
+                case 'industrial':
+                    fixedCharge = 500;
+                    break;
+                case 'agricultural':
+                    fixedCharge = 80;
+                    break;
+            }
+            
+            // Add taxes (assuming 5% tax)
+            const tax = billAmount * 0.05;
+            const totalAmount = billAmount + fixedCharge + tax;
+            
+            // Format date
+            const currentDate = new Date();
+            const billDate = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const dueDate = new Date(currentDate);
+            dueDate.setDate(dueDate.getDate() + 15);
+            const billDueDate = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Create bill receipt HTML
+            let categoryDisplay = category.charAt(0).toUpperCase() + category.slice(1);
+            let resultHTML = `
+                <h2>Electricity Bill Receipt</h2>
+                <p><strong>Bill Date:</strong> ${billDate}</p>
+                <p><strong>Due Date:</strong> ${billDueDate}</p>
+                
+                <div class="bill-info">
+                    <p><strong>Customer Name:</strong> ${name}</p>
+                    <p><strong>Consumer ID:</strong> ${consumerID}</p>
+                    <p><strong>Address:</strong> ${address}</p>
+                    <p><strong>Category:</strong> ${categoryDisplay}</p>
+                </div>
+                
+                <div class="bill-info">
+                    <p><strong>Previous Reading:</strong> ${previousReading} kWh</p>
+                    <p><strong>Current Reading:</strong> ${currentReading} kWh</p>
+                    <p><strong>Units Consumed:</strong> ${unitsConsumed} kWh</p>
+                    <p><strong>Rate per Unit:</strong> ₹${unitRate.toFixed(2)}</p>
+                </div>
+                
+                <div class="bill-info">
+                    <p><strong>Energy Charges:</strong> ₹${billAmount.toFixed(2)}</p>
+                    <p><strong>Fixed Charges:</strong> ₹${fixedCharge.toFixed(2)}</p>
+                    <p><strong>Tax (5%):</strong> ₹${tax.toFixed(2)}</p>
+                </div>
+                
+                <div class="total-amount">
+                    <p><strong>Total Amount Due:</strong> ₹${totalAmount.toFixed(2)}</p>
+                </div>
+            `;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = resultHTML;
+            resultDiv.style.display = 'block';
+            resultDiv.classList.add('animated');
+            
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Even/Odd Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 18px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: #45a049;
+        }
+
+        button {
+            padding: 12px 24px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultDisplay {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function checkEvenOrOdd() {
+            let numberInput = document.getElementById("numberInput").value;
+            let resultDisplay = document.getElementById("resultDisplay");
+
+            if (numberInput === "") {
+                resultDisplay.innerText = 'Please enter a number.';
+            } else {
+                numberInput = parseInt(numberInput);
+                if (numberInput % 2 === 0) {
+                    resultDisplay.innerText = numberInput + ' is an even number.';
+                } else {
+                    resultDisplay.innerText = numberInput + ' is an odd number.';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Even/Odd Checker</h1>
+        <input type="number" id="numberInput" placeholder="Enter a number">
+        <button onclick="checkEvenOrOdd()">Check</button>
+        <div id="resultDisplay"></div>
+    </div>
+</body>
+
+</html>

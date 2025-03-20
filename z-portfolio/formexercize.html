@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .start-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-button:hover {
+            background-color: #45a049;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        legend {
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 1px 2px red;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-button {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-button input[type="radio"],
+        .input-button input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .page-two {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <script>
+        //  entry function
+        let student = [];
+      
+
+        function entryFunction() {
+            console.log("entryFunction");
+            document.getElementById("input").hidden = false;
+            document.getElementById("entry").hidden = true;
+        }
+
+        // showdata
+        function addData() {
+            let information = {};
+
+            information["firstName"] = document.getElementById("first-name").value;
+            information["lastName"] = document.getElementById("last-name").value;
+            information["contactNo"] = document.getElementById("phone-no").value;
+            information["DOB"] = document.getElementById("birth-day").value;
+            information["email"] = document.getElementById("email-id").value;
+            information["education"] = document.getElementById("edu-cation").value;
+            information["address"] = document.getElementById("address-l").value;
+            information["rollNo"] = document.getElementById("roll").value;
+            information["communicationSkill"] = document.getElementById("range").value;
+            information["languages"] = [];
+            if (document.getElementById("HTML").checked) {
+                information["languages"].push("HTML");
+            }
+            if (document.getElementById("CSS").checked) {
+                information["languages"].push("CSS");
+            }
+            if (document.getElementById("PYTHON").checked) {
+                information["languages"].push("PYTHON");
+            }
+            if (document.getElementById("RUBY").checked) {
+                information["languages"].push("RUBY");
+            }
+            information["about"] = document.getElementsByName("message")[0].value;
+
+            student.push(information);
+
+            console.log("ENTRY  ", student);
+            showData(); // Call the function to update the table immediately after adding the data
+        }
+
+        function listFunction() {
+            document.getElementById("input").hidden = true;
+            document.getElementById("entry").hidden = false;
+            showData();
+        }
+
+        function showData() {
+            let tableOutput = "<table>";
+
+            tableOutput += "<thead><tr><th>Name</th><th>Email</th><th>Date of Birth</th><th>Contact No</th><th>Education</th><th>Address</th><th>Roll No</th><th>Communication Skill</th><th>Languages Known</th><th>About</th></tr></thead>";
+
+            for (let i = 0; i < student.length; i++) {
+                let output = student[i];
+
+                let languages = output.languages.join(", "); // Joining languages array with comma
+
+                let outputString =
+                    '<tr><td class="name">' +
+                    output.firstName + " " + output.lastName +
+                    '</td><td class="mail-id">' +
+                    output.email +
+                    "</td><td class='dob'>" +
+                    output.DOB +
+                    "</td><td>" +
+                    output.contactNo +
+                    "</td><td>" +
+                    output.education +
+                    "</td><td>" +
+                    output.address +
+                    "</td><td>" +
+                    output.rollNo +
+                    "</td><td>" +
+                    output.communicationSkill +
+                    "</td><td>" +
+                    languages + // Adding languages
+                    "</td><td>" +
+                    output.about +
+                    "</td></tr>";
+                tableOutput += outputString;
+                console.log("showData", output);
+            }
+
+            tableOutput += "</table>";
+
+            document.getElementById("show-info").innerHTML = tableOutput;
+        }
+
+
+        window.onload = function () {
+            entryFunction();
+        };
+    </script>
+    <!-- Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+</head>
+
+<body style="margin: 0">
+
+    <div class="header">
+        <button class="start-button" onclick="entryFunction()">ENTRY FORM</button>
+        <button class="start-button" onclick="listFunction()">LIST</button><br />
+    </div>
+    <br>
+
+    <div id="input">
+        <form action="#" method="get">
+            <fieldset>
+                <h1 class="heading">ADMISSION FORM</h1>
+                <br />
+                <!-- First Name -->
+                <label>FIRST NAME:</label>
+                <input type="text" id="first-name" name="fname" placeholder="ENTER YOUR FIRST NAME" /><br />
+                <br />
+                <!-- Last name -->
+                <label>LAST NAME:</label>
+                <input type="text" id="last-name" name="lname" placeholder="ENTER YOUR  LAST NAME" /><br />
+                <br />
+                <!-- Gender -->
+                <label>GENDER:</label>
+                <div class="input-button" id="gender">
+                    <input class="input-button" type="radio" id="male" name="gender" />MALE&nbsp; &nbsp; &nbsp;
+                    <input class="input-button" type="radio" id="female" name="gender" />FEMALE
+                </div>
+                <br />
+                <!-- Education  -->
+                <label>EDUCATION:</label>
+                <select name="education" id="edu-cation">
+                    <optgroup label="Education">
+                        Proficient
+                        <option value="SCHOOL">School</option>&nbsp; &nbsp;
+                        <option value="JR. COLLAGE">Jr. Collage</option> &nbsp; &nbsp;
+                        <option value="GRADUATION">Graduation</option>&nbsp; &nbsp;
+                        <option value="PG">PG</option>&nbsp; &nbsp;
+                    </optgroup>
+                </select>
+                <br />
+                <!-- Contact Number -->
+                <label>CONTACT NO.:</label>&nbsp;
+                <input type="number" id="phone-no" name="phone" /><br />&nbsp;
+                <br />
+                <!-- Address -->
+                <label>ADDRESS:</label>&nbsp;
+
+                <input type="text" id="address-l" name="address" /><br />&nbsp;
+                <br />
+                <!-- Roll No. -->
+                <label>ROLL NO.:</label>
+                <input type="number" id="roll" name="roll" /><br />&nbsp;
+                <br />
+
+                <!-- Email -->
+                <label>EMAIL ID:</label>&nbsp; &nbsp;
+                <input type="email" id="email-id" name="email" placeholder="abd@gmail.com"
+                    style="height: 28px; width: 200px;" /><br />
+                <br />
+                <!-- DOB -->
+                <label>DOB</label>&nbsp; &nbsp;
+                <input type="date" id="birth-day" name="birth" /><br />
+                <!--Communication skill  -->
+                <label>COMMUNICATION SKILL:</label>&nbsp; &nbsp;
+                <input type="range" id="range" name="range" /><br />
+                <br />
+                <!-- language known -->
+                <label>LANGAUGE KNOWN:</label>
+
+                <div class="input-button">
+                    <input class="input-button" type="checkbox" id="HTML" name="HTML" />HTML &nbsp;&nbsp; <input
+                        type="checkbox" id="CSS" name="CSS" />CSS&nbsp; &nbsp; &nbsp;
+                    <input type="checkbox" id="PYTHON" name="PYTHON" />JAVASCRIPT&nbsp; &nbsp; &nbsp;
+                    <input type="checkbox" id="RUBY" name="RUBY" />PYTHON
+                </div>
+                <!-- tell something about your self -->
+                <label>TELL SOMETHING ABOUT YOURSELF:</label>
+                <textarea style="width: 250px; height: 100px; border-color: black" name="message"
+                    placeholder="TELL SOMETHING ABOUT YOURSELF">
+                </textarea><br />
+                <br />
+                <!-- button -->
+
+                <button type="reset" style="height: 28px; width: 70px; background-color: lightcoral;">CLOSE</button>
+                <button type="button" onclick="addData()"
+                    style="height: 28px; width: 70px; background-color: green;">SUBMIT
+                </button>
+            </fieldset>
+        </form>
+
+    </div>
+
+    <div id="entry">
+        <h1>Student D.ata Information</h1>
+        <table id="show-info">
+            <!-- heading row -->
+        </table>
+    </div>
+    <!--  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC Quiz Game</title>
+    <style>
+        :root {
+            --primary-color: #0E4194;
+            --secondary-color: #F6B700;
+            --correct-color: #4CAF50;
+            --wrong-color: #F44336;
+            --bg-dark: #121212;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .intro-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.5s;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            text-align: center;
+            text-shadow: 0 0 10px rgba(246, 183, 0, 0.5);
+        }
+
+        .sub-logo {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .start-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, var(--primary-color), #1565C0);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .start-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(14, 65, 148, 0.2);
+            border-radius: 10px;
+        }
+
+        .prize-label {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(14, 65, 148, 0.5);
+        }
+
+        .question-container {
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .option {
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--bg-dark);
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            color: var(--text-light);
+        }
+
+        .correct {
+            background-color: var(--correct-color);
+            border-color: var(--correct-color);
+        }
+
+        .wrong {
+            background-color: var(--wrong-color);
+            border-color: var(--wrong-color);
+        }
+
+        .lifelines {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lifeline {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .lifeline:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .lifeline.used {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: gray;
+            color: gray;
+        }
+
+        .money-ladder {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 1rem;
+            max-width: 200px;
+            display: none;
+        }
+
+        .money-ladder h3 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .money-level {
+            padding: 0.5rem;
+            margin: 0.3rem 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .money-level.current {
+            background-color: var(--secondary-color);
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+
+        .money-level.milestone {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .result-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 90;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .result-prize {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+
+        .play-again-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, var(--primary-color), #1565C0);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .play-again-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .audience-poll {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            display: none;
+            flex-direction: column;
+            z-index: 80;
+        }
+
+        .audience-poll h3 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .poll-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .poll-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .poll-letter {
+            font-weight: bold;
+            color: var(--secondary-color);
+            width: 20px;
+        }
+
+        .poll-bar-container {
+            flex-grow: 1;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .poll-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            font-weight: bold;
+            transition: width 1s;
+        }
+
+        .close-btn {
+            align-self: center;
+            padding: 10px 30px;
+            font-size: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .phone-friend {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            display: none;
+            flex-direction: column;
+            z-index: 80;
+        }
+
+        .phone-friend h3 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .phone-timer {
+            align-self: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .friend-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .fifty-fifty-btn {
+            font-size: 1.2rem;
+        }
+
+        .audience-poll-btn {
+            font-size: 1.5rem;
+        }
+
+        .phone-friend-btn {
+            font-size: 1.2rem;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+
+            .money-ladder {
+                position: static;
+                transform: none;
+                margin-top: 1rem;
+                max-width: 100%;
+                display: none;
+            }
+
+            .show-money-btn {
+                display: block;
+                margin: 1rem auto;
+                padding: 0.5rem 1rem;
+                background-color: var(--secondary-color);
+                color: var(--bg-dark);
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-screen" id="introScreen">
+        <div class="logo">KBC Quiz Game</div>
+        <div class="sub-logo">Who Wants to Be a Millionaire?</div>
+        <button class="start-btn" id="startBtn">Start Game</button>
+    </div>
+
+    <div class="game-container" id="gameContainer">
+        <div class="header">
+            <div>
+                <div class="prize-label">Current Prize:</div>
+                <div id="currentPrize">₹0</div>
+            </div>
+            <div class="timer" id="timer">30</div>
+        </div>
+
+        <div class="lifelines">
+            <div class="lifeline fifty-fifty-btn" id="fiftyFifty" title="50:50">50:50</div>
+            <div class="lifeline audience-poll-btn" id="audiencePoll" title="Audience Poll">👥</div>
+            <div class="lifeline phone-friend-btn" id="phoneFriend" title="Phone a Friend">📞</div>
+        </div>
+
+        <div class="question-container">
+            <div class="question-number" id="questionNumber">Question 1/15</div>
+            <div class="question-text" id="questionText">Loading question...</div>
+            <div class="options-container" id="optionsContainer">
+                <div class="option" data-index="0">
+                    <div class="option-letter">A</div>
+                    <div class="option-text">Loading...</div>
+                </div>
+                <div class="option" data-index="1">
+                    <div class="option-letter">B</div>
+                    <div class="option-text">Loading...</div>
+                </div>
+                <div class="option" data-index="2">
+                    <div class="option-letter">C</div>
+                    <div class="option-text">Loading...</div>
+                </div>
+                <div class="option" data-index="3">
+                    <div class="option-letter">D</div>
+                    <div class="option-text">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="show-money-btn" id="showMoneyBtn">Show Money Ladder</button>
+    </div>
+
+    <div class="money-ladder" id="moneyLadder">
+        <h3>Prize Money</h3>
+        <div class="money-level" data-level="15">
+            <span>15</span>
+            <span>₹1 Crore</span>
+        </div>
+        <div class="money-level" data-level="14">
+            <span>14</span>
+            <span>₹50 Lakh</span>
+        </div>
+        <div class="money-level milestone" data-level="13">
+            <span>13</span>
+            <span>₹25 Lakh</span>
+        </div>
+        <div class="money-level" data-level="12">
+            <span>12</span>
+            <span>₹12.5 Lakh</span>
+        </div>
+        <div class="money-level" data-level="11">
+            <span>11</span>
+            <span>₹6.4 Lakh</span>
+        </div>
+        <div class="money-level" data-level="10">
+            <span>10</span>
+            <span>₹3.2 Lakh</span>
+        </div>
+        <div class="money-level" data-level="9">
+            <span>9</span>
+            <span>₹1.6 Lakh</span>
+        </div>
+        <div class="money-level" data-level="8">
+            <span>8</span>
+            <span>₹80,000</span>
+        </div>
+        <div class="money-level milestone" data-level="7">
+            <span>7</span>
+            <span>₹40,000</span>
+        </div>
+        <div class="money-level" data-level="6">
+            <span>6</span>
+            <span>₹20,000</span>
+        </div>
+        <div class="money-level" data-level="5">
+            <span>5</span>
+            <span>₹10,000</span>
+        </div>
+        <div class="money-level" data-level="4">
+            <span>4</span>
+            <span>₹5,000</span>
+        </div>
+        <div class="money-level" data-level="3">
+            <span>3</span>
+            <span>₹3,000</span>
+        </div>
+        <div class="money-level" data-level="2">
+            <span>2</span>
+            <span>₹2,000</span>
+        </div>
+        <div class="money-level" data-level="1">
+            <span>1</span>
+            <span>₹1,000</span>
+        </div>
+    </div>
+
+    <div class="result-screen" id="resultScreen">
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <div class="result-title" id="resultTitle">Congratulations!</div>
+        <div class="result-message" id="resultMessage">You've done amazingly well!</div>
+        <div class="result-prize" id="resultPrize">You won: ₹0</div>
+        <button class="play-again-btn" id="playAgainBtn">Play Again</button>
+    </div>
+
+    <div class="audience-poll" id="audiencePollModal">
+        <h3>Audience Poll Results</h3>
+        <div class="poll-bars" id="pollBars">
+            <div class="poll-option">
+                <div class="poll-letter">A:</div>
+                <div class="poll-bar-container">
+                    <div class="poll-bar" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="poll-option">
+                <div class="poll-letter">B:</div>
+                <div class="poll-bar-container">
+                    <div class="poll-bar" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="poll-option">
+                <div class="poll-letter">C:</div>
+                <div class="poll-bar-container">
+                    <div class="poll-bar" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="poll-option">
+                <div class="poll-letter">D:</div>
+                <div class="poll-bar-container">
+                    <div class="poll-bar" style="width: 0%">0%</div>
+                </div>
+            </div>
+        </div>
+        <button class="close-btn" id="closePollBtn">Close</button>
+    </div>
+
+    <div class="phone-friend" id="phoneFriendModal">
+        <h3>Phone a Friend</h3>
+        <div class="phone-timer" id="phoneTimer">30</div>
+        <div class="friend-message" id="friendMessage">
+            Hmm, let me think about this question...
+        </div>
+        <button class="close-btn" id="closePhoneBtn">Close</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                correct: 1
+            },
+            {
+                question: "Which of these is NOT a primary color?",
+                options: ["Red", "Blue", "Green", "Yellow"],
+                correct: 3
+            },
+            {
+                question: "What is the capital of Japan?",
+                options: ["Beijing", "Seoul", "Tokyo", "Bangkok"],
+                correct: 2
+            },
+            {
+                question: "Who wrote the play 'Romeo and Juliet'?",
+                options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Leo Tolstoy"],
+                correct: 1
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                correct: 3
+            },
+            {
+                question: "Which element has the chemical symbol 'O'?",
+                options: ["Gold", "Oxygen", "Osmium", "Oganesson"],
+                correct: 1
+            },
+            {
+                question: "Which country is home to the Taj Mahal?",
+                options: ["India", "Pakistan", "Bangladesh", "Nepal"],
+                correct: 0
+            },
+            {
+                question: "What is the smallest prime number?",
+                options: ["0", "1", "2", "3"],
+                correct: 2
+            },
+            {
+                question: "Which of these animals is NOT a mammal?",
+                options: ["Dolphin", "Bat", "Penguin", "Kangaroo"],
+                correct: 2
+            },
+            {
+                question: "Who painted the Mona Lisa?",
+                options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+                correct: 2
+            },
+            {
+                question: "What is the hardest natural substance on Earth?",
+                options: ["Gold", "Diamond", "Platinum", "Titanium"],
+                correct: 1
+            },
+            {
+                question: "Which of these countries is NOT in Europe?",
+                options: ["Portugal", "Sweden", "Thailand", "Italy"],
+                correct: 2
+            },
+            {
+                question: "What is the main component of the Sun?",
+                options: ["Helium", "Oxygen", "Hydrogen", "Carbon"],
+                correct: 2
+            },
+            {
+                question: "In which year did the Titanic sink?",
+                options: ["1905", "1912", "1920", "1931"],
+                correct: 1
+            },
+            {
+                question: "Which of these scientists developed the theory of relativity?",
+                options: ["Isaac Newton", "Niels Bohr", "Albert Einstein", "Marie Curie"],
+                correct: 2
+            }
+        ];
+
+        const prizeAmounts = [
+            "₹1,000",
+            "₹2,000",
+            "₹3,000",
+            "₹5,000",
+            "₹10,000",
+            "₹20,000",
+            "₹40,000",
+            "₹80,000",
+            "₹1.6 Lakh",
+            "₹3.2 Lakh",
+            "₹6.4 Lakh",
+            "₹12.5 Lakh",
+            "₹25 Lakh",
+            "₹50 Lakh",
+            "₹1 Crore"
+        ];
+
+        // Game state variables
+        let currentQuestion = 0;
+        let timeLeft = 30;
+        let timer;
+        let lifelines = {
+            fiftyFifty: true,
+            audiencePoll: true,
+            phoneFriend: true
+        };
+        let selectedOption = null;
+        let safeAmount = "₹0";
+
+        // DOM Elements
+        const introScreen = document.getElementById('introScreen');
+        const startBtn = document.getElementById('startBtn');
+        const gameContainer = document.getElementById('gameContainer');
+        const questionNumber = document.getElementById('questionNumber');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const timerEl = document.getElementById('timer');
+        const currentPrize = document.getElementById('currentPrize');
+        const moneyLadder = document.getElementById('moneyLadder');
+        const resultScreen = document.getElementById('resultScreen');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultMessage = document.getElementById('resultMessage');
+        const resultPrize = document.getElementById('resultPrize');
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        const showMoneyBtn = document.getElementById('showMoneyBtn');
+
+        // Lifelines
+        const fiftyFiftyBtn = document.getElementById('fiftyFifty');
+        const audiencePollBtn = document.getElementById('audiencePoll');
+        const phoneFriendBtn = document.getElementById('phoneFriend');
+        
+        // Audience Poll Modal
+        const audiencePollModal = document.getElementById('audiencePollModal');
+        const pollBars = document.getElementById('pollBars');
+        const closePollBtn = document.getElementById('closePollBtn');
+        
+        // Phone Friend Modal
+        const phoneFriendModal = document.getElementById('phoneFriendModal');
+        const phoneTimer = document.getElementById('phoneTimer');
+        const friendMessage = document.getElementById('friendMessage');
+        const closePhoneBtn = document.getElementById('closePhoneBtn');
+
+        // Game initialization
+        startBtn.addEventListener('click', startGame);
+        playAgainBtn.addEventListener('click', resetGame);
+        
+        // Lifeline buttons
+        fiftyFiftyBtn.addEventListener('click', useFiftyFifty);
+        audiencePollBtn.addEventListener('click', useAudiencePoll);
+        phoneFriendBtn.addEventListener('click', usePhoneFriend);
+        
+        // Modal close buttons
+        closePollBtn.addEventListener('click', () => {
+            audiencePollModal.style.display = 'none';
+        });
+        
+        closePhoneBtn.addEventListener('click', () => {
+            phoneFriendModal.style.display = 'none';
+        });
+        
+        // Money ladder toggle for mobile
+        showMoneyBtn.addEventListener('click', () => {
+            if (moneyLadder.style.display === 'block') {
+                moneyLadder.style.display = 'none';
+            } else {
+                moneyLadder.style.display = 'block';
+            }
+        });
+
+        // Start the game
+        function startGame() {
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                gameContainer.style.display = 'block';
+                moneyLadder.style.display = 'block';
+                loadQuestion();
+                startTimer();
+            }, 500);
+        }
+
+        // Load a question
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResult(true, "Congratulations! You've won the grand prize!");
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            questionNumber.textContent = `Question ${currentQuestion + 1}/15`;
+            questionText.textContent = question.question;
+            
+            // Update money ladder highlight
+            const moneyLevels = document.querySelectorAll('.money-level');
+            moneyLevels.forEach(level => {
+                level.classList.remove('current');
+                if (parseInt(level.dataset.level) === currentQuestion + 1) {
+                    level.classList.add('current');
+                }
+            });
+
+            // Update current prize
+            currentPrize.textContent = currentQuestion === 0 ? "₹0" : prizeAmounts[currentQuestion - 1];
+            
+            // Check for milestone (safe amount)
+            if (currentQuestion >= 7) {
+                safeAmount = "₹40,000";
+            }
+            if (currentQuestion >= 13) {
+                safeAmount = "₹25 Lakh";
+            }
+
+            // Load options
+            const options = optionsContainer.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'wrong');
+                option.classList.remove('hide');
+                option.querySelector('.option-text').textContent = question.options[index];
+                option.onclick = () => selectOption(index);
+            });
+
+            // Reset timer
+            timeLeft = 30;
+            timerEl.textContent = timeLeft;
+        }
+
+        // Start the countdown timer
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                
+                if (timeLeft <= 10) {
+                    timerEl.style.color = '#F44336';
+                } else {
+                    timerEl.style.color = 'white';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    showResult(false, "Time's up!");
+                }
+            }, 1000);
+        }
+
+       // Handle option selection
+function selectOption(index) {
+    if (selectedOption !== null) return; // Prevent multiple selections
+    
+    selectedOption = index;
+    const options = optionsContainer.querySelectorAll('.option');
+    const correctIndex = questions[currentQuestion].correct;
+    
+    clearInterval(timer); // Stop the timer
+    
+    // Highlight selected option
+    options[index].classList.add(index === correctIndex ? 'correct' : 'wrong');
+    
+    // Show correct answer if wrong answer selected
+    if (index !== correctIndex) {
+        setTimeout(() => {
+            options[correctIndex].classList.add('correct');
+        }, 1000);
+        
+        setTimeout(() => {
+            showResult(false, "Sorry, that's incorrect!");
+        }, 3000);
+    } else {
+        // Correct answer selected
+        setTimeout(() => {
+            currentQuestion++;
+            selectedOption = null;
+            
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+                startTimer();
+            } else {
+                showResult(true, "Congratulations! You've won the grand prize!");
+            }
+        }, 2000);
+    }
+}
+
+// Show game result
+function showResult(isWinner, message) {
+    gameContainer.style.display = 'none';
+    moneyLadder.style.display = 'none';
+    resultScreen.style.display = 'flex';
+    
+    if (isWinner) {
+        resultIcon.textContent = '🏆';
+        resultTitle.textContent = 'Congratulations!';
+        resultMessage.textContent = message;
+        resultPrize.textContent = `You won: ${currentQuestion === 0 ? "₹0" : prizeAmounts[currentQuestion - 1]}`;
+    } else {
+        resultIcon.textContent = '😢';
+        resultTitle.textContent = 'Game Over';
+        resultMessage.textContent = message;
+        
+        // Calculate prize based on milestones
+        let finalPrize = "₹0";
+        if (currentQuestion >= 7) {
+            finalPrize = "₹40,000";
+        }
+        if (currentQuestion >= 13) {
+            finalPrize = "₹25 Lakh";
+        }
+        
+        resultPrize.textContent = `You won: ${finalPrize}`;
+    }
+}
+
+// Reset game
+function resetGame() {
+    currentQuestion = 0;
+    selectedOption = null;
+    timeLeft = 30;
+    safeAmount = "₹0";
+    
+    // Reset lifelines
+    lifelines = {
+        fiftyFifty: true,
+        audiencePoll: true,
+        phoneFriend: true
+    };
+    
+    fiftyFiftyBtn.classList.remove('used');
+    audiencePollBtn.classList.remove('used');
+    phoneFriendBtn.classList.remove('used');
+    
+    // Hide result screen
+    resultScreen.style.display = 'none';
+    
+    // Show intro screen
+    introScreen.style.display = 'flex';
+    introScreen.style.opacity = '1';
+}
+
+// 50:50 Lifeline
+function useFiftyFifty() {
+    if (!lifelines.fiftyFifty || selectedOption !== null) return;
+    
+    lifelines.fiftyFifty = false;
+    fiftyFiftyBtn.classList.add('used');
+    
+    const options = optionsContainer.querySelectorAll('.option');
+    const correctIndex = questions[currentQuestion].correct;
+    
+    // Keep track of removed options
+    let removedCount = 0;
+    
+    // Remove two wrong options
+    for (let i = 0; i < options.length && removedCount < 2; i++) {
+        if (i !== correctIndex) {
+            options[i].classList.add('hide');
+            options[i].onclick = null; // Remove click handler
+            removedCount++;
+        }
+    }
+}
+
+// Audience Poll Lifeline
+function useAudiencePoll() {
+    if (!lifelines.audiencePoll || selectedOption !== null) return;
+    
+    lifelines.audiencePoll = false;
+    audiencePollBtn.classList.add('used');
+    
+    const correctIndex = questions[currentQuestion].correct;
+    
+    // Generate audience poll percentages
+    const pollResults = [0, 0, 0, 0];
+    
+    // Correct answer gets 50-80% of votes
+    const correctPercentage = Math.floor(Math.random() * 31) + 50;
+    pollResults[correctIndex] = correctPercentage;
+    
+    // Distribute remaining votes
+    let remainingPercentage = 100 - correctPercentage;
+    
+    for (let i = 0; i < pollResults.length; i++) {
+        if (i !== correctIndex) {
+            // Last option gets whatever is left
+            if (i === pollResults.length - 1 || 
+                (i === pollResults.length - 2 && correctIndex === pollResults.length - 1)) {
+                pollResults[i] = remainingPercentage;
+            } else {
+                const percentage = Math.floor(Math.random() * remainingPercentage);
+                pollResults[i] = percentage;
+                remainingPercentage -= percentage;
+            }
+        }
+    }
+    
+    // Display poll results
+    const pollBars = document.querySelectorAll('.poll-bar');
+    pollBars.forEach((bar, index) => {
+        bar.style.width = '0%';
+        bar.textContent = '0%';
+    });
+    
+    audiencePollModal.style.display = 'flex';
+    
+    // Animate poll bars
+    setTimeout(() => {
+        pollBars.forEach((bar, index) => {
+            bar.style.width = pollResults[index] + '%';
+            bar.textContent = pollResults[index] + '%';
+        });
+    }, 500);
+}
+
+// Phone a Friend Lifeline
+function usePhoneFriend() {
+    if (!lifelines.phoneFriend || selectedOption !== null) return;
+    
+    lifelines.phoneFriend = false;
+    phoneFriendBtn.classList.add('used');
+    
+    const correctIndex = questions[currentQuestion].correct;
+    const options = questions[currentQuestion].options;
+    const letters = ['A', 'B', 'C', 'D'];
+    
+    // Determine if friend knows the answer
+    const friendKnows = Math.random() < 0.7; // 70% chance friend knows
+    
+    let message = "Hmm, let me think about this question... ";
+    
+    if (friendKnows) {
+        message += `I'm pretty confident the answer is ${letters[correctIndex]}. ${options[correctIndex]}.`;
+    } else {
+        // Friend is unsure
+        let guessIndex;
+        do {
+            guessIndex = Math.floor(Math.random() * 4);
+        } while (guessIndex === correctIndex); // Make sure it's wrong
+        
+        message += `I'm not entirely sure, but I think it might be ${letters[guessIndex]}. ${options[guessIndex]}. But don't quote me on that!`;
+    }
+    
+    friendMessage.textContent = "Calling friend...";
+    phoneFriendModal.style.display = 'flex';
+    
+    // Simulate phone call
+    let phoneTimeLeft = 30;
+    phoneTimer.textContent = phoneTimeLeft;
+    
+    const phoneInterval = setInterval(() => {
+        phoneTimeLeft--;
+        phoneTimer.textContent = phoneTimeLeft;
+        
+        if (phoneTimeLeft === 25) {
+            friendMessage.textContent = "Hey, what's up?";
+        } else if (phoneTimeLeft === 22) {
+            friendMessage.textContent = "Oh, you're on KBC? That's exciting!";
+        } else if (phoneTimeLeft === 19) {
+            friendMessage.textContent = "What's the question?";
+        } else if (phoneTimeLeft === 15) {
+            friendMessage.textContent = message;
+        }
+        
+        if (phoneTimeLeft <= 0) {
+            clearInterval(phoneInterval);
+            friendMessage.textContent = "Time's up! Good luck!";
+        }
+    }, 1000);
+}
+
+// Initialize option click handlers
+const options = optionsContainer.querySelectorAll('.option');
+options.forEach((option, index) => {
+    option.onclick = () => selectOption(index);
+});
+
+</script>
